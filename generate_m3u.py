@@ -15,11 +15,16 @@ from datetime import datetime
 # 配置区域 - 你可以按需修改
 # ============================================================
 
-# 多个上游数据源（按优先级排列，前面的源优先使用其台标和EPG信息）
+# 多个上游数据源（按优先级排列，前面的源优先使用其台标和EPG信息，URL也优先使用前面的）
 # 每个源可以是 M3U 或 TXT 格式
 # 注意：GitHub Actions 运行在海外服务器，raw.githubusercontent.com 的链接更稳定
+# vbskycn 放在首位，因为其URL通常更可靠、多源更丰富
 SOURCE_URLS = [
-    # fanmingming/live - 热门源，频道齐全，台标完善
+    # vbskycn/iptv - 主源，带台标和EPG，多源丰富
+    # 使用 GitHub 镜像加速地址，避免国内 CDN 在海外无法访问
+    "https://gh-proxy.com/raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.m3u",
+
+    # fanmingming/live - 补充源，频道齐全，台标完善
     "https://raw.githubusercontent.com/fanmingming/live/main/tv/m3u/ipv6.m3u",
 
     # YanG-1989/m3u - 聚合源，收集多个来源
@@ -30,10 +35,6 @@ SOURCE_URLS = [
 
     # drangjchen/IPTV
     "https://raw.githubusercontent.com/drangjchen/IPTV/main/M3U/ipv6.m3u",
-
-    # vbskycn/iptv - 补充源，带台标和EPG
-    # 使用 GitHub 镜像加速地址，避免国内 CDN 在海外无法访问
-    "https://gh-proxy.com/raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.m3u",
 ]
 
 # 输出文件
@@ -60,42 +61,45 @@ WANTED_CATEGORIES = [
 CATEGORY_ALIASES = {
     "央视频道": [
         "央视频道", "央视", "cctv", "中央频道", "央视高清", "央视标清",
-        "cctv", "CGTN", "央视4K",
+        "cctv", "CGTN", "央视4K", "央视8K", "CCTV",
     ],
     "卫视频道": [
         "卫视频道", "卫视", "卫星频道", "卫视高清", "卫视标清",
-        "卫视台", "省级卫视",
+        "卫视台", "省级卫视", "卫视高清台",
     ],
     "地方频道": [
         "地方频道", "地方台", "地方",
         "各省卫视", "省台", "地市台", "市县台",
+        "地市频道", "本地", "城市频道",
     ],
     "港澳台频道": [
         "港澳台频道", "港澳台", "香港", "澳门", "台湾", "港台", "海外",
-        "香港台", "澳门台", "台湾台",
+        "香港台", "澳门台", "台湾台", "凤凰", "华语影院",
+        "香港频道", "澳门频道", "台湾频道",
     ],
     "少儿频道": [
         "少儿频道", "少儿", "儿童", "卡通", "动漫", "动画",
-        "少儿台", "动漫秀场", "卡通台",
+        "少儿台", "动漫秀场", "卡通台", "亲子", "育儿",
     ],
     "体育频道": [
         "体育频道", "体育", "赛事", "体育台",
-        "体育赛事", "竞技",
+        "体育赛事", "竞技", "体育竞技",
     ],
     "电影频道": [
         "电影频道", "电影", "影视", "影视台",
-        "CHC", "动作电影", "家庭影院",
+        "CHC", "动作电影", "家庭影院", "电影台",
+        "影院", "影视剧",
     ],
     "音乐频道": [
         "音乐频道", "音乐", "音乐台",
     ],
     "纪录频道": [
         "纪录频道", "纪录", "纪录片", "纪实", "科教",
-        "纪实台", "科教台",
+        "纪实台", "科教台", "探索", "纪录电影",
     ],
     "付费频道": [
         "付费频道", "付费", "数字付费", "收费频道", "VIP频道",
-        "数字频道", "付费台",
+        "数字频道", "付费台", "付费电视",
     ],
 }
 
@@ -237,12 +241,208 @@ EXCLUDE_KEYWORDS = [
     "体验", "仅供", "演示", "4KHDR", "8K", "杜比",
     # 游戏直播频道（非体育）
     "B站", "斗鱼", "虎牙", "哔哩哔哩",
+    # 轮播解说频道（非正式电视节目）
+    "解说", "轮播",
 ]
 
 # 需要排除的频道名称（精确匹配）
 EXCLUDE_NAMES = [
     "支持作者",
 ]
+
+# 需要在特定分类中排除的频道关键词
+# {分类名: [关键词列表]}
+CATEGORY_EXCLUDE_KEYWORDS = {
+    "纪录频道": [
+        "新闻", "综合", "一套", "二套", "经济", "法制",
+        "汉语", "维吾尔", "哈萨克",
+        "兵团", "白山", "玛纳斯", "磐石", "靖宇",
+        "东丰", "九台", "龙井", "双辽", "柳河", "桦甸", "汪清", "通化县",
+    ],
+    "电影频道": [
+        "电视剧", "美剧", "动漫", "恐怖", "漫威",
+    ],
+    "央视频道": [
+        # 保留兵器科技，它是CCTV旗下付费频道
+    ],
+}
+
+# 省级卫视白名单（只有这些才能进入"卫视频道"分类）
+# 深圳卫视虽然不是省级，但用户明确要求保留在卫视频道
+PROVINCIAL_SATELLITE_TV = [
+    "北京卫视", "天津卫视", "河北卫视", "山西卫视", "内蒙古卫视",
+    "辽宁卫视", "吉林卫视", "黑龙江卫视", "东方卫视", "上海卫视",
+    "江苏卫视", "浙江卫视", "安徽卫视", "东南卫视", "福建卫视",
+    "江西卫视", "山东卫视", "河南卫视", "湖北卫视", "湖南卫视",
+    "广东卫视", "广西卫视", "海南卫视", "重庆卫视",
+    "四川卫视", "贵州卫视", "云南卫视", "西藏卫视",
+    "陕西卫视", "甘肃卫视", "青海卫视", "宁夏卫视", "新疆卫视",
+    "深圳卫视",  # 非省级但保留
+    "三沙卫视",  # 地级市卫视，但考虑到特殊性，保留在卫视
+    "厦门卫视",  # 地级市卫视，但考虑到特殊性，保留在卫视
+]
+
+# 需要移到地方频道的卫视（非省级卫视）
+# 小城市/非省级卫视，移去地方频道
+NON_PROVINCIAL_SATELLITE_TV = [
+    "人间卫视", "农林卫视", "延边卫视",
+    "大湾区卫视", "南方卫视", "大湾区卫视",
+    "长城卫视", "黄河卫视", "泰山卫视",
+    "海峡卫视", "旅游卫视", "海南卫视",
+]
+
+# 汉字拼音映射表（用于中文频道名称排序）
+# 覆盖常用汉字，确保频道按拼音顺序排列
+PINYIN_MAP = {
+    # 数字
+    '一': 'yi', '二': 'er', '三': 'san', '四': 'si', '五': 'wu',
+    '六': 'liu', '七': 'qi', '八': 'ba', '九': 'jiu', '十': 'shi',
+    '〇': 'ling', '零': 'ling',
+    # 省份/直辖市简称（按拼音首字母排序）
+    '安': 'an', '徽': 'hui',
+    '北': 'bei', '京': 'jing',
+    '重': 'chong', '庆': 'qing',
+    '福': 'fu', '建': 'jian',
+    '甘': 'gan', '肃': 'su',
+    '广': 'guang', '东': 'dong', '西': 'xi',
+    '贵': 'gui', '州': 'zhou',
+    '海': 'hai', '南': 'nan',
+    '河': 'he', '北': 'bei', '南': 'nan',
+    '黑': 'hei', '龙': 'long', '江': 'jiang',
+    '湖': 'hu', '北': 'bei', '南': 'nan',
+    '吉': 'ji', '林': 'lin',
+    '江': 'jiang', '苏': 'su', '西': 'xi',
+    '辽': 'liao', '宁': 'ning',
+    '内': 'nei', '蒙': 'meng', '古': 'gu',
+    '宁': 'ning', '夏': 'xia',
+    '青': 'qing',
+    '山': 'shan', '东': 'dong', '西': 'xi',
+    '陕': 'shan', '西': 'xi',
+    '上': 'shang', '海': 'hai',
+    '四': 'si', '川': 'chuan',
+    '台': 'tai', '湾': 'wan',
+    '天': 'tian', '津': 'jin',
+    '西': 'xi', '藏': 'zang',
+    '香': 'xiang', '港': 'gang',
+    '新': 'xin', '疆': 'jiang',
+    '澳': 'ao', '门': 'men',
+    '云': 'yun', '南': 'nan',
+    '浙': 'zhe', '江': 'jiang',
+    # 城市名
+    '深': 'shen', '圳': 'zhen',
+    '厦': 'xia', '门': 'men',
+    '延': 'yan', '边': 'bian',
+    '大': 'da', '湾': 'wan', '区': 'qu',
+    '三': 'san', '沙': 'sha',
+    # 频道相关常用字
+    '央': 'yang', '视': 'shi',
+    '卫': 'wei', '星': 'xing',
+    '频': 'pin', '道': 'dao',
+    '综': 'zong', '合': 'he',
+    '新': 'xin', '闻': 'wen',
+    '财': 'cai', '经': 'jing',
+    '体': 'ti', '育': 'yu',
+    '电': 'dian', '影': 'ying',
+    '剧': 'ju', '院': 'yuan',
+    '少': 'shao', '儿': 'er',
+    '科': 'ke', '教': 'jiao',
+    '纪': 'ji', '录': 'lu', '实': 'shi',
+    '音': 'yin', '乐': 'le', '悦': 'yue',
+    '高': 'gao', '清': 'qing',
+    '标': 'biao', '准': 'zhun',
+    '时': 'shi', '尚': 'shang',
+    '国': 'guo', '际': 'ji',
+    '法': 'fa', '制': 'zhi',
+    '农': 'nong', '业': 'ye', '村': 'cun',
+    '军': 'jun', '事': 'shi',
+    '戏': 'xi', '曲': 'qu',
+    '奥': 'ao', '林': 'lin', '匹': 'pi', '克': 'ke',
+    '数': 'shu', '字': 'zi',
+    '付': 'fu', '费': 'fei',
+    '收': 'shou', '费': 'fei',
+    '动': 'dong', '漫': 'man',
+    '卡': 'ka', '通': 'tong',
+    '记': 'ji', '录': 'lu',
+    '真': 'zhen', '人': 'ren',
+    '家': 'jia', '庭': 'ting',
+    '作': 'zuo', '战': 'zhan',
+    '动': 'dong', '作': 'zuo',
+    '公': 'gong', '共': 'gong',
+    '生': 'sheng', '活': 'huo',
+    '世': 'shi', '界': 'jie',
+    '都': 'du', '市': 'shi',
+    '旅': 'lv', '游': 'you',
+    '老': 'lao',
+    '故': 'gu', '宫': 'gong',
+    '文': 'wen', '化': 'hua',
+    '探': 'tan', '索': 'suo',
+    '发': 'fa', '现': 'xian',
+    '大': 'da',
+    '风': 'feng', '云': 'yun',
+    '资': 'zi', '讯': 'xun',
+    '气': 'qi', '象': 'xiang',
+    '天': 'tian', '气': 'qi',
+    '穿': 'chuan', '越': 'yue',
+    '百': 'bai', '科': 'ke',
+    '全': 'quan', '球': 'qiu',
+    '棋': 'qi', '牌': 'pai',
+    '竞': 'jing', '技': 'ji',
+    '搏': 'bo', '击': 'ji',
+    '武': 'wu', '术': 'shu',
+    '篮': 'lan', '球': 'qiu',
+    '足': 'zu', '球': 'qiu',
+    '乒': 'ping', '乓': 'pang',
+    '羽': 'yu', '毛': 'mao',
+    '网': 'wang', '球': 'qiu',
+    '高': 'gao', '尔': 'er', '夫': 'fu',
+    '台': 'tai', '球': 'qiu',
+    '斯': 'si', '诺': 'nuo',
+    '排': 'pai', '球': 'qiu',
+    '田': 'tian', '径': 'jing',
+    '游': 'you', '泳': 'yong',
+    '滑': 'hua', '雪': 'xue', '冰': 'bing',
+    '极': 'ji', '限': 'xian',
+    '自': 'zi', '由': 'you',
+    '直': 'zhi', '播': 'bo',
+    '回': 'hui', '放': 'fang',
+    '精': 'jing', '选': 'xuan',
+    '导': 'dao',
+    '优': 'you', '酷': 'ku',
+    '爱': 'ai', '奇': 'qi', '艺': 'yi',
+    '腾': 'teng', '讯': 'xun',
+    '芒': 'mang', '果': 'guo',
+    '咪': 'mi', '咕': 'gu',
+    '娱': 'yu', '乐': 'le',
+    '金': 'jin', '鹰': 'ying',
+    '凤': 'feng', '凰': 'huang',
+    '华': 'hua', '夏': 'xia',
+    '长': 'chang', '城': 'cheng',
+    '兵': 'bing', '团': 'tuan',
+    '经': 'jing', '典': 'dian',
+    '怀': 'huai', '旧': 'jiu',
+    '亲': 'qin', '子': 'zi',
+    '成': 'cheng', '语': 'yu',
+    '书': 'shu', '画': 'hua',
+    '钓': 'diao', '鱼': 'yu',
+    '美': 'mei', '食': 'shi',
+    '环': 'huan', '球': 'qiu',
+    '现': 'xian', '场': 'chang',
+    '第': 'di', '一': 'yi',
+    '楚': 'chu', '天': 'tian',
+    '黄': 'huang', '河': 'he',
+    '泰': 'tai', '山': 'shan',
+    '海': 'hai', '峡': 'xia',
+    '长': 'chang', '城': 'cheng',
+    '南': 'nan', '方': 'fang',
+    '大': 'da', '湾': 'wan', '区': 'qu',
+    '人': 'ren', '间': 'jian',
+    'CHC': 'chc',
+    'CGTN': 'cgtn',
+    'CCTV': 'cctv',
+    'CETV': 'cetv',
+    'CNR': 'cnr',
+    'CNTV': 'cntv',
+}
 
 # ============================================================
 # 核心逻辑
@@ -252,12 +452,31 @@ FETCH_TIMEOUT = 15  # 每个源的超时时间（秒）
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
 
 
+def chinese_to_pinyin(text: str) -> str:
+    """将汉字转换为拼音（用于排序），非汉字字符保持不变"""
+    result = []
+    for ch in text:
+        if '\u4e00' <= ch <= '\u9fff':  # 中文字符范围
+            pinyin = PINYIN_MAP.get(ch)
+            if pinyin:
+                result.append(pinyin)
+            else:
+                # 未在映射表中的汉字，用Unicode编码作为排序依据
+                result.append(f'zzz{ord(ch):05d}')
+        else:
+            result.append(ch.lower())
+    return ''.join(result)
+
+
 def natural_sort_key(name: str) -> list:
     """
     生成自然排序键，使 "CCTV1" 排在 "CCTV10" 之前
+    支持中文拼音排序，例如: 安徽卫视, 北京卫视, 重庆卫视, 东方卫视...
     例如: CCTV1, CCTV2, CCTV3, ..., CCTV10, CCTV11, ...
     """
-    parts = re.split(r'(\d+)', name)
+    # 先对中文部分进行拼音转换
+    pinyin_text = chinese_to_pinyin(name)
+    parts = re.split(r'(\d+)', pinyin_text)
     result = []
     for part in parts:
         if part.isdigit():
@@ -447,6 +666,31 @@ def classify_and_merge(channels: list) -> dict:
         if not norm_name:
             continue
 
+        # 分类特定排除
+        cat_excludes = CATEGORY_EXCLUDE_KEYWORDS.get(std_cat, [])
+        if cat_excludes:
+            should_skip = False
+            for kw in cat_excludes:
+                if kw in norm_name or kw in ch["name"]:
+                    should_skip = True
+                    break
+            if should_skip:
+                # 尝试放入地方频道
+                if "地方频道" in categorized and std_cat != "地方频道":
+                    local_entry = categorized["地方频道"]
+                    if norm_name not in local_entry:
+                        local_entry[norm_name] = {
+                            "name": norm_name,
+                            "display_name": ch["name"],
+                            "urls": [],
+                            "logo": ch["logo"],
+                            "tvg_id": ch["tvg_id"],
+                            "tvg_name": ch["tvg_name"],
+                        }
+                    if ch["url"] not in local_entry[norm_name]["urls"]:
+                        local_entry[norm_name]["urls"].append(ch["url"])
+                continue
+
         entry = categorized[std_cat]
         if norm_name not in entry:
             entry[norm_name] = {
@@ -467,6 +711,43 @@ def classify_and_merge(channels: list) -> dict:
             entry[norm_name]["tvg_id"] = ch["tvg_id"]
         if not entry[norm_name]["tvg_name"] and ch["tvg_name"]:
             entry[norm_name]["tvg_name"] = ch["tvg_name"]
+
+    # 第二步：筛选卫视频道，非省级卫视移到地方频道
+    if "卫视频道" in categorized and "地方频道" in categorized:
+        satellite_entries = categorized["卫视频道"]
+        local_entries = categorized["地方频道"]
+        # 收集需要移走的频道名
+        to_move = []
+        for norm_name, entry in satellite_entries.items():
+            # 检查是否在省级白名单中
+            is_provincial = False
+            for prov_name in PROVINCIAL_SATELLITE_TV:
+                if norm_name == prov_name or prov_name in norm_name or norm_name in prov_name:
+                    is_provincial = True
+                    break
+            if not is_provincial:
+                # 所有不在省级卫视白名单中的频道都移到地方频道
+                # 包括：上游源错分类的本地频道（如"北京财经"被放在"北京卫视"分组下）
+                to_move.append(norm_name)
+        # 执行移动
+        for norm_name in to_move:
+            entry = satellite_entries.pop(norm_name)
+            if norm_name not in local_entries:
+                local_entries[norm_name] = entry
+            else:
+                # 合并到已有的地方频道条目
+                existing = local_entries[norm_name]
+                for url in entry["urls"]:
+                    if url not in existing["urls"]:
+                        existing["urls"].append(url)
+                if not existing["logo"] and entry["logo"]:
+                    existing["logo"] = entry["logo"]
+                if not existing["tvg_id"] and entry["tvg_id"]:
+                    existing["tvg_id"] = entry["tvg_id"]
+                if not existing["tvg_name"] and entry["tvg_name"]:
+                    existing["tvg_name"] = entry["tvg_name"]
+        if to_move:
+            print(f"  将 {len(to_move)} 个非省级卫视移至地方频道: {', '.join(to_move[:5])}...")
 
     # 转换为列表格式
     result = {}
@@ -498,7 +779,6 @@ def generate_m3u(categorized: dict, epg_url: str) -> str:
         lines.append("")
 
         for it in items:
-            primary = it["urls"][0]
             display = it["display_name"]
 
             attrs = ""
@@ -510,13 +790,10 @@ def generate_m3u(categorized: dict, epg_url: str) -> str:
                 attrs += f' tvg-logo="{it["logo"]}"'
             attrs += f' group-title="{cat}"'
 
-            lines.append(f'#EXTINF:-1{attrs},{display}')
-            lines.append(primary)
-
-            # 额外URL作为注释备用源
-            if len(it["urls"]) > 1:
-                for extra in it["urls"][1:]:
-                    lines.append(f"# 备用源: {extra}")
+            # 所有URL都作为正式播放源输出，而不是注释
+            for url in it["urls"]:
+                lines.append(f'#EXTINF:-1{attrs},{display}')
+                lines.append(url)
 
         lines.append("")
 
