@@ -1,0 +1,38 @@
+name: 更新自定义IPTV播放列表
+
+on:
+  # 每6小时自动更新一次
+  schedule:
+    - cron: '0 */6 * * *'
+  # 手动触发更新
+  workflow_dispatch:
+  # 推送代码时触发
+  push:
+    branches: [ main, master ]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 生成播放列表
+        run: python generate_m3u.py
+
+      - name: 提交更新
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git add my_channels.m3u my_channels.txt
+          git diff --quiet && git diff --staged --quiet || \
+            git commit -m "chore: 自动更新播放列表 $(date +'%Y-%m-%d %H:%M')"
+          git push
