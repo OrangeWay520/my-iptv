@@ -24,8 +24,14 @@ SOURCE_URLS = [
     # 使用 GitHub 镜像加速地址，避免国内 CDN 在海外无法访问
     "https://gh-proxy.com/raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.m3u",
 
+    # vbskycn/iptv (镜像) - 备用CDN，同上数据
+    "https://live.zbds.top/tv/iptv4.m3u",
+
     # fanmingming/live - 补充源，频道齐全，台标完善
     "https://raw.githubusercontent.com/fanmingming/live/main/tv/m3u/ipv6.m3u",
+
+    # AudiHub/iptv (migu) - 咪咕稳定源，补充央视和卫视
+    "https://gh-proxy.org/https://raw.githubusercontent.com/AudiHub/iptv/main/m3u/migu.m3u",
 
     # YanG-1989/m3u - 聚合源，收集多个来源
     "https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u",
@@ -35,6 +41,12 @@ SOURCE_URLS = [
 
     # drangjchen/IPTV
     "https://raw.githubusercontent.com/drangjchen/IPTV/main/M3U/ipv6.m3u",
+
+    # big-mouth-cn/tv - 综合大源，7881个频道，含北京IPTV、港澳台等
+    "https://gh-proxy.com/https://raw.githubusercontent.com/big-mouth-cn/tv/main/iptv.m3u",
+
+    # yuanzl77/IPTV - 综合大源，5654个频道，分类清晰
+    "https://raw.githubusercontent.com/yuanzl77/IPTV/master/live.txt",
 ]
 
 # 输出文件
