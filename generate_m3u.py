@@ -17,13 +17,9 @@ from datetime import datetime
 
 # 多个上游数据源（按优先级排列，前面的源优先使用其台标和EPG信息）
 # 每个源可以是 M3U 或 TXT 格式
+# 注意：GitHub Actions 运行在海外服务器，raw.githubusercontent.com 的链接更稳定
 SOURCE_URLS = [
-    # vbskycn/iptv - 主源，带台标和EPG，每6小时更新
-    "https://live.zbds.top/tv/iptv4.m3u",       # IPv4
-    # "https://live.zbds.top/tv/iptv6.m3u",     # IPv6（家里有IPv6可取消注释）
-    # "https://live.zbds.top/tv/iptv.m3u",       # 混合
-
-    # fanmingming/live - 热门源，频道齐全
+    # fanmingming/live - 热门源，频道齐全，台标完善
     "https://raw.githubusercontent.com/fanmingming/live/main/tv/m3u/ipv6.m3u",
 
     # YanG-1989/m3u - 聚合源，收集多个来源
@@ -34,6 +30,10 @@ SOURCE_URLS = [
 
     # drangjchen/IPTV
     "https://raw.githubusercontent.com/drangjchen/IPTV/main/M3U/ipv6.m3u",
+
+    # vbskycn/iptv - 补充源，带台标和EPG
+    # 使用 GitHub 镜像加速地址，避免国内 CDN 在海外无法访问
+    "https://gh-proxy.com/raw.githubusercontent.com/vbskycn/iptv/refs/heads/master/tv/iptv4.m3u",
 ]
 
 # 输出文件
@@ -166,10 +166,16 @@ def match_category(group_title: str) -> str | None:
 
 def fetch_source(url: str) -> str | None:
     """从上游获取M3U/TXT内容，失败返回None"""
+    import ssl
+
     print(f"  正在获取: {url}")
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     try:
-        with urllib.request.urlopen(req, timeout=FETCH_TIMEOUT) as resp:
+        # 创建不验证SSL证书的上下文，避免某些源的证书问题
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+        with urllib.request.urlopen(req, timeout=FETCH_TIMEOUT, context=ctx) as resp:
             content = resp.read().decode("utf-8", errors="replace")
             print(f"  ✓ 成功 ({len(content)} 字节)")
             return content
