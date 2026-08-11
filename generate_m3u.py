@@ -55,73 +55,179 @@ WANTED_CATEGORIES = [
 ]
 
 # 分类名映射：不同源对同一分类可能有不同叫法
-# 例如有的源用"央视"、"CCTV"代表央视频道
+# 注意：匹配顺序影响结果，更具体的分类应放在前面
+# 使用精确匹配避免误分类
 CATEGORY_ALIASES = {
-    "央视频道": ["央视频道", "央视", "cctv", "中央频道", "央视高清", "央视标清"],
-    "卫视频道": ["卫视频道", "卫视", "卫星频道", "卫视高清", "卫视标清"],
-    "地方频道": ["地方频道", "地方", "各省卫视", "省台", "数字频道", "其他频道"],
-    "港澳台频道": ["港澳台频道", "港澳台", "香港", "澳门", "台湾", "港台", "海外"],
-    "少儿频道": ["少儿频道", "少儿", "儿童", "卡通", "动漫", "动画"],
-    "体育频道": ["体育频道", "体育", "赛事"],
-    "电影频道": ["电影频道", "电影", "影视"],
-    "音乐频道": ["音乐频道", "音乐", "综艺"],
-    "纪录频道": ["纪录频道", "纪录", "纪录片", "纪实", "科教"],
-    "付费频道": ["付费频道", "付费", "数字付费", "收费频道", "VIP频道"],
+    "央视频道": [
+        "央视频道", "央视", "cctv", "中央频道", "央视高清", "央视标清",
+        "cctv", "CGTN", "央视4K",
+    ],
+    "卫视频道": [
+        "卫视频道", "卫视", "卫星频道", "卫视高清", "卫视标清",
+        "卫视台", "省级卫视",
+    ],
+    "地方频道": [
+        "地方频道", "地方台", "地方",
+        "各省卫视", "省台", "地市台", "市县台",
+    ],
+    "港澳台频道": [
+        "港澳台频道", "港澳台", "香港", "澳门", "台湾", "港台", "海外",
+        "香港台", "澳门台", "台湾台",
+    ],
+    "少儿频道": [
+        "少儿频道", "少儿", "儿童", "卡通", "动漫", "动画",
+        "少儿台", "动漫秀场", "卡通台",
+    ],
+    "体育频道": [
+        "体育频道", "体育", "赛事", "体育台",
+        "体育赛事", "竞技",
+    ],
+    "电影频道": [
+        "电影频道", "电影", "影视", "影视台",
+        "CHC", "动作电影", "家庭影院",
+    ],
+    "音乐频道": [
+        "音乐频道", "音乐", "音乐台",
+    ],
+    "纪录频道": [
+        "纪录频道", "纪录", "纪录片", "纪实", "科教",
+        "纪实台", "科教台",
+    ],
+    "付费频道": [
+        "付费频道", "付费", "数字付费", "收费频道", "VIP频道",
+        "数字频道", "付费台",
+    ],
 }
 
 # 频道名归一化映射：不同源对同一频道可能有不同叫法
 # 统一为标准化名称，方便跨源合并
 CHANNEL_NAME_ALIASES = {
+    # CCTV-1
     "CCTV-1": "CCTV1",
     "CCTV-1 综合": "CCTV1",
     "CCTV1 综合": "CCTV1",
+    "CCTV-1综合": "CCTV1",
+    "CCTV-1高清": "CCTV1",
+    "CCTV1高清": "CCTV1",
+    # CCTV-2
     "CCTV-2": "CCTV2",
     "CCTV-2 财经": "CCTV2",
     "CCTV2 财经": "CCTV2",
+    "CCTV-2财经": "CCTV2",
+    "CCTV-2高清": "CCTV2",
+    "CCTV2高清": "CCTV2",
+    # CCTV-3
     "CCTV-3": "CCTV3",
     "CCTV-3 综艺": "CCTV3",
     "CCTV3 综艺": "CCTV3",
+    "CCTV-3综艺": "CCTV3",
+    "CCTV-3高清": "CCTV3",
+    "CCTV3高清": "CCTV3",
+    # CCTV-4
     "CCTV-4": "CCTV4",
     "CCTV-4 中文国际": "CCTV4",
     "CCTV4 中文国际": "CCTV4",
+    "CCTV-4中文国际": "CCTV4",
+    "CCTV-4高清": "CCTV4",
+    "CCTV4高清": "CCTV4",
+    # CCTV-5
     "CCTV-5": "CCTV5",
     "CCTV-5 体育": "CCTV5",
     "CCTV5 体育": "CCTV5",
+    "CCTV-5体育": "CCTV5",
+    "CCTV-5高清": "CCTV5",
+    "CCTV5高清": "CCTV5",
+    # CCTV-5+
     "CCTV-5+": "CCTV5+",
     "CCTV-5+ 体育赛事": "CCTV5+",
     "CCTV5+ 体育赛事": "CCTV5+",
+    "CCTV-5+体育赛事": "CCTV5+",
+    "CCTV-5+高清": "CCTV5+",
+    "CCTV5+高清": "CCTV5+",
+    # CCTV-6
     "CCTV-6": "CCTV6",
     "CCTV-6 电影": "CCTV6",
     "CCTV6 电影": "CCTV6",
+    "CCTV-6电影": "CCTV6",
+    "CCTV-6高清": "CCTV6",
+    "CCTV6高清": "CCTV6",
+    # CCTV-7
     "CCTV-7": "CCTV7",
     "CCTV-7 国防军事": "CCTV7",
     "CCTV7 国防军事": "CCTV7",
+    "CCTV-7国防军事": "CCTV7",
+    "CCTV-7高清": "CCTV7",
+    "CCTV7高清": "CCTV7",
+    # CCTV-8
     "CCTV-8": "CCTV8",
     "CCTV-8 电视剧": "CCTV8",
     "CCTV8 电视剧": "CCTV8",
+    "CCTV-8电视剧": "CCTV8",
+    "CCTV-8高清": "CCTV8",
+    "CCTV8高清": "CCTV8",
+    # CCTV-9
     "CCTV-9": "CCTV9",
     "CCTV-9 纪录": "CCTV9",
     "CCTV9 纪录": "CCTV9",
+    "CCTV-9纪录": "CCTV9",
+    "CCTV-9高清": "CCTV9",
+    "CCTV9高清": "CCTV9",
+    # CCTV-10
     "CCTV-10": "CCTV10",
     "CCTV-10 科教": "CCTV10",
     "CCTV10 科教": "CCTV10",
+    "CCTV-10科教": "CCTV10",
+    "CCTV-10高清": "CCTV10",
+    "CCTV10高清": "CCTV10",
+    # CCTV-11
     "CCTV-11": "CCTV11",
     "CCTV-11 戏曲": "CCTV11",
-    "CCTV12": "CCTV-12",
+    "CCTV-11戏曲": "CCTV11",
+    "CCTV-11高清": "CCTV11",
+    "CCTV11高清": "CCTV11",
+    # CCTV-12
+    "CCTV-12": "CCTV12",
+    "CCTV-12 社会与法": "CCTV12",
+    "CCTV-12社会与法": "CCTV12",
+    "CCTV12 社会与法": "CCTV12",
+    "CCTV12社会与法": "CCTV12",
+    "CCTV-12高清": "CCTV12",
+    "CCTV12高清": "CCTV12",
+    # CCTV-13
     "CCTV-13": "CCTV13",
     "CCTV-13 新闻": "CCTV13",
     "CCTV13 新闻": "CCTV13",
+    "CCTV-13新闻": "CCTV13",
+    "CCTV-13高清": "CCTV13",
+    "CCTV13高清": "CCTV13",
+    # CCTV-14
     "CCTV-14": "CCTV14",
     "CCTV-14 少儿": "CCTV14",
     "CCTV14 少儿": "CCTV14",
+    "CCTV-14少儿": "CCTV14",
+    "CCTV-14高清": "CCTV14",
+    "CCTV14高清": "CCTV14",
+    # CCTV-15
     "CCTV-15": "CCTV15",
     "CCTV-15 音乐": "CCTV15",
     "CCTV15 音乐": "CCTV15",
+    "CCTV-15音乐": "CCTV15",
+    "CCTV-15高清": "CCTV15",
+    "CCTV15高清": "CCTV15",
+    # CCTV-16
     "CCTV-16": "CCTV16",
     "CCTV-16 奥林匹克": "CCTV16",
+    "CCTV-16奥林匹克": "CCTV16",
+    "CCTV16 奥林匹克": "CCTV16",
+    "CCTV-16高清": "CCTV16",
+    "CCTV16高清": "CCTV16",
+    # CCTV-17
     "CCTV-17": "CCTV17",
     "CCTV-17 农业农村": "CCTV17",
     "CCTV17 农业农村": "CCTV17",
+    "CCTV-17农业农村": "CCTV17",
+    "CCTV-17高清": "CCTV17",
+    "CCTV17高清": "CCTV17",
 }
 
 # 需要排除的频道关键词
@@ -129,10 +235,13 @@ EXCLUDE_KEYWORDS = [
     "求赏", "捐赠", "赞助", "测试", "广告", "推广",
     "打赏", "VIP", "试看", "福利", "收费", "内部",
     "体验", "仅供", "演示", "4KHDR", "8K", "杜比",
+    # 游戏直播频道（非体育）
+    "B站", "斗鱼", "虎牙", "哔哩哔哩",
 ]
 
 # 需要排除的频道名称（精确匹配）
 EXCLUDE_NAMES = [
+    "支持作者",
 ]
 
 # ============================================================
@@ -141,6 +250,21 @@ EXCLUDE_NAMES = [
 
 FETCH_TIMEOUT = 15  # 每个源的超时时间（秒）
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+
+
+def natural_sort_key(name: str) -> list:
+    """
+    生成自然排序键，使 "CCTV1" 排在 "CCTV10" 之前
+    例如: CCTV1, CCTV2, CCTV3, ..., CCTV10, CCTV11, ...
+    """
+    parts = re.split(r'(\d+)', name)
+    result = []
+    for part in parts:
+        if part.isdigit():
+            result.append((0, int(part)))  # 数字按数值排序
+        else:
+            result.append((1, part.lower()))  # 文本按字母排序
+    return result
 
 
 def normalize_name(name: str) -> str:
@@ -349,7 +473,7 @@ def classify_and_merge(channels: list) -> dict:
     for cat in WANTED_CATEGORIES:
         entry = categorized[cat]
         items = list(entry.values())
-        items.sort(key=lambda x: x["name"])
+        items.sort(key=lambda x: natural_sort_key(x["name"]))
         result[cat] = items
 
     return result
