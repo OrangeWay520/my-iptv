@@ -444,6 +444,44 @@ PINYIN_MAP = {
     'CNTV': 'cntv',
 }
 
+# 频道归属强制覆盖：手动指定某些频道应归入哪个分类
+# 用于修正上游源分类错误的情况
+# 键为归一化后的频道名，值为目标分类
+CHANNEL_CATEGORY_OVERRIDE = {
+    "风云剧场": "付费频道",    # 付费频道，不是央视频道
+    "兵器科技": "付费频道",    # 付费频道，不是央视频道
+    "中国交通": "地方频道",    # 地方交通频道，不是央视频道
+    "熊猫直播": "地方频道",    # 熊猫TV直播，不是央视频道
+}
+
+# 地方名称前缀列表（用于检测频道是否属于地方频道）
+# 当少儿频道/电影频道中的频道名包含这些前缀时，也归入地方频道（双分类）
+LOCAL_PLACE_NAMES = [
+    # 直辖市
+    "北京", "上海", "天津", "重庆",
+    # 省份
+    "河北", "山西", "辽宁", "吉林", "黑龙江",
+    "江苏", "浙江", "安徽", "福建", "江西", "山东",
+    "河南", "湖北", "湖南", "广东", "海南",
+    "四川", "贵州", "云南", "陕西", "甘肃", "青海",
+    "内蒙古", "广西", "西藏", "宁夏", "新疆",
+    # 主要城市
+    "哈尔滨", "长春", "沈阳", "大连", "石家庄", "太原",
+    "济南", "青岛", "郑州", "南京", "杭州", "宁波",
+    "合肥", "福州", "厦门", "南昌", "武汉", "长沙",
+    "广州", "深圳", "南宁", "成都", "贵阳", "昆明",
+    "西安", "兰州", "西宁", "海口", "三亚",
+    "苏州", "无锡", "佛山", "东莞", "温州", "绍兴",
+    "嘉兴", "泉州", "珠海", "中山", "惠州",
+    # 地级市/县级市
+    "东阳", "延边", "伊犁", "奎屯", "敦化",
+    "长白", "长影", "大宁", "白山", "桦甸", "磐石",
+    "玛纳斯", "靖宇", "双辽", "柳河", "汪清", "龙井",
+    "东丰", "九台", "通化", "江津", "安多",
+    # 兵团/特区
+    "兵团", "三沙", "澳门", "香港",
+]
+
 # ============================================================
 # 核心逻辑
 # ============================================================
@@ -647,6 +685,14 @@ def collect_all_channels() -> list:
     return all_channels, primary_epg
 
 
+def is_local_channel_name(name: str) -> bool:
+    """检查频道名是否包含地方名称前缀，用于判断是否属于地方频道"""
+    for place in LOCAL_PLACE_NAMES:
+        if name.startswith(place):
+            return True
+    return False
+
+
 def classify_and_merge(channels: list) -> dict:
     """
     将频道按分类归类，跨源合并同名频道
@@ -665,6 +711,11 @@ def classify_and_merge(channels: list) -> dict:
         norm_name = normalize_name(ch["name"])
         if not norm_name:
             continue
+
+        # 频道归属强制覆盖
+        override_cat = CHANNEL_CATEGORY_OVERRIDE.get(norm_name)
+        if override_cat:
+            std_cat = override_cat
 
         # 分类特定排除
         cat_excludes = CATEGORY_EXCLUDE_KEYWORDS.get(std_cat, [])
@@ -748,6 +799,34 @@ def classify_and_merge(channels: list) -> dict:
                     existing["tvg_name"] = entry["tvg_name"]
         if to_move:
             print(f"  将 {len(to_move)} 个非省级卫视移至地方频道: {', '.join(to_move[:5])}...")
+
+    # 第三步：双分类 - 少儿频道/电影频道中的地方频道也归入地方频道
+    DUAL_CLASSIFY_CATEGORIES = ["少儿频道", "电影频道"]
+    for src_cat in DUAL_CLASSIFY_CATEGORIES:
+        if src_cat in categorized and "地方频道" in categorized:
+            src_entries = categorized[src_cat]
+            local_entries = categorized["地方频道"]
+            dual_count = 0
+            for norm_name, entry in list(src_entries.items()):
+                if is_local_channel_name(norm_name):
+                    if norm_name not in local_entries:
+                        local_entries[norm_name] = {
+                            "name": norm_name,
+                            "display_name": entry["display_name"],
+                            "urls": list(entry["urls"]),
+                            "logo": entry["logo"],
+                            "tvg_id": entry["tvg_id"],
+                            "tvg_name": entry["tvg_name"],
+                        }
+                        dual_count += 1
+                    else:
+                        # 合并URL到已有的地方频道条目
+                        existing = local_entries[norm_name]
+                        for url in entry["urls"]:
+                            if url not in existing["urls"]:
+                                existing["urls"].append(url)
+            if dual_count > 0:
+                print(f"  将 {dual_count} 个{src_cat}中的地方频道同时归入地方频道")
 
     # 转换为列表格式
     result = {}
