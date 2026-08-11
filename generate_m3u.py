@@ -41,12 +41,6 @@ SOURCE_URLS = [
 
     # drangjchen/IPTV
     "https://raw.githubusercontent.com/drangjchen/IPTV/main/M3U/ipv6.m3u",
-
-    # big-mouth-cn/tv - 综合大源，7881个频道，含北京IPTV、港澳台等
-    "https://gh-proxy.com/https://raw.githubusercontent.com/big-mouth-cn/tv/main/iptv.m3u",
-
-    # yuanzl77/IPTV - 综合大源，5654个频道，分类清晰
-    "https://raw.githubusercontent.com/yuanzl77/IPTV/master/live.txt",
 ]
 
 # 输出文件
@@ -117,133 +111,25 @@ CATEGORY_ALIASES = {
 
 # 频道名归一化映射：不同源对同一频道可能有不同叫法
 # 统一为标准化名称，方便跨源合并
+# 注意：CCTV系列频道的各种后缀变体（如"CCTV1综合"、"CCTV-1 高清"等）
+# 由 normalize_name() 中的正则逻辑自动处理，无需在此列出
 CHANNEL_NAME_ALIASES = {
-    # CCTV-1
-    "CCTV-1": "CCTV1",
-    "CCTV-1 综合": "CCTV1",
-    "CCTV1 综合": "CCTV1",
-    "CCTV-1综合": "CCTV1",
-    "CCTV-1高清": "CCTV1",
-    "CCTV1高清": "CCTV1",
-    # CCTV-2
-    "CCTV-2": "CCTV2",
-    "CCTV-2 财经": "CCTV2",
-    "CCTV2 财经": "CCTV2",
-    "CCTV-2财经": "CCTV2",
-    "CCTV-2高清": "CCTV2",
-    "CCTV2高清": "CCTV2",
-    # CCTV-3
-    "CCTV-3": "CCTV3",
-    "CCTV-3 综艺": "CCTV3",
-    "CCTV3 综艺": "CCTV3",
-    "CCTV-3综艺": "CCTV3",
-    "CCTV-3高清": "CCTV3",
-    "CCTV3高清": "CCTV3",
-    # CCTV-4
-    "CCTV-4": "CCTV4",
-    "CCTV-4 中文国际": "CCTV4",
-    "CCTV4 中文国际": "CCTV4",
-    "CCTV-4中文国际": "CCTV4",
-    "CCTV-4高清": "CCTV4",
-    "CCTV4高清": "CCTV4",
-    # CCTV-5
-    "CCTV-5": "CCTV5",
-    "CCTV-5 体育": "CCTV5",
-    "CCTV5 体育": "CCTV5",
-    "CCTV-5体育": "CCTV5",
-    "CCTV-5高清": "CCTV5",
-    "CCTV5高清": "CCTV5",
-    # CCTV-5+
-    "CCTV-5+": "CCTV5+",
-    "CCTV-5+ 体育赛事": "CCTV5+",
-    "CCTV5+ 体育赛事": "CCTV5+",
-    "CCTV-5+体育赛事": "CCTV5+",
-    "CCTV-5+高清": "CCTV5+",
-    "CCTV5+高清": "CCTV5+",
-    # CCTV-6
-    "CCTV-6": "CCTV6",
-    "CCTV-6 电影": "CCTV6",
-    "CCTV6 电影": "CCTV6",
-    "CCTV-6电影": "CCTV6",
-    "CCTV-6高清": "CCTV6",
-    "CCTV6高清": "CCTV6",
-    # CCTV-7
-    "CCTV-7": "CCTV7",
-    "CCTV-7 国防军事": "CCTV7",
-    "CCTV7 国防军事": "CCTV7",
-    "CCTV-7国防军事": "CCTV7",
-    "CCTV-7高清": "CCTV7",
-    "CCTV7高清": "CCTV7",
-    # CCTV-8
-    "CCTV-8": "CCTV8",
-    "CCTV-8 电视剧": "CCTV8",
-    "CCTV8 电视剧": "CCTV8",
-    "CCTV-8电视剧": "CCTV8",
-    "CCTV-8高清": "CCTV8",
-    "CCTV8高清": "CCTV8",
-    # CCTV-9
-    "CCTV-9": "CCTV9",
-    "CCTV-9 纪录": "CCTV9",
-    "CCTV9 纪录": "CCTV9",
-    "CCTV-9纪录": "CCTV9",
-    "CCTV-9高清": "CCTV9",
-    "CCTV9高清": "CCTV9",
-    # CCTV-10
-    "CCTV-10": "CCTV10",
-    "CCTV-10 科教": "CCTV10",
-    "CCTV10 科教": "CCTV10",
-    "CCTV-10科教": "CCTV10",
-    "CCTV-10高清": "CCTV10",
-    "CCTV10高清": "CCTV10",
-    # CCTV-11
-    "CCTV-11": "CCTV11",
-    "CCTV-11 戏曲": "CCTV11",
-    "CCTV-11戏曲": "CCTV11",
-    "CCTV-11高清": "CCTV11",
-    "CCTV11高清": "CCTV11",
-    # CCTV-12
-    "CCTV-12": "CCTV12",
-    "CCTV-12 社会与法": "CCTV12",
-    "CCTV-12社会与法": "CCTV12",
-    "CCTV12 社会与法": "CCTV12",
-    "CCTV12社会与法": "CCTV12",
-    "CCTV-12高清": "CCTV12",
-    "CCTV12高清": "CCTV12",
-    # CCTV-13
-    "CCTV-13": "CCTV13",
-    "CCTV-13 新闻": "CCTV13",
-    "CCTV13 新闻": "CCTV13",
-    "CCTV-13新闻": "CCTV13",
-    "CCTV-13高清": "CCTV13",
-    "CCTV13高清": "CCTV13",
-    # CCTV-14
-    "CCTV-14": "CCTV14",
-    "CCTV-14 少儿": "CCTV14",
-    "CCTV14 少儿": "CCTV14",
-    "CCTV-14少儿": "CCTV14",
-    "CCTV-14高清": "CCTV14",
-    "CCTV14高清": "CCTV14",
-    # CCTV-15
-    "CCTV-15": "CCTV15",
-    "CCTV-15 音乐": "CCTV15",
-    "CCTV15 音乐": "CCTV15",
-    "CCTV-15音乐": "CCTV15",
-    "CCTV-15高清": "CCTV15",
-    "CCTV15高清": "CCTV15",
-    # CCTV-16
-    "CCTV-16": "CCTV16",
-    "CCTV-16 奥林匹克": "CCTV16",
-    "CCTV-16奥林匹克": "CCTV16",
-    "CCTV16 奥林匹克": "CCTV16",
-    "CCTV-16高清": "CCTV16",
-    "CCTV16高清": "CCTV16",
-    # CCTV-17
-    "CCTV-17": "CCTV17",
-    "CCTV-17 农业农村": "CCTV17",
-    "CCTV17 农业农村": "CCTV17",
-    "CCTV-17农业农村": "CCTV17",
-    "CCTV-17高清": "CCTV17",
-    "CCTV17高清": "CCTV17",
+    # CGTN频道
+    "CGTN": "CGTN",
+    "CGTN 中文国际": "CGTN",
+    "CGTN Documentary": "CGTN纪录",
+    "CGTN纪录": "CGTN纪录",
+    # CETV频道
+    "CETV-1": "CETV1",
+    "CETV1 中国教育": "CETV1",
+    "CETV-1 中国教育": "CETV1",
+    "CETV1中国教育": "CETV1",
+    # CHC电影频道
+    "CHC电影": "CHC电影",
+    "CHC动作电影": "CHC动作电影",
+    "CHC家庭影院": "CHC家庭影院",
+    "CHC影迷电影": "CHC影迷电影",
+    "CHC高清电影": "CHC电影",
 }
 
 # 需要排除的频道关键词
@@ -539,9 +425,19 @@ def natural_sort_key(name: str) -> list:
 def normalize_name(name: str) -> str:
     """归一化频道名，去掉多余空格和特殊字符"""
     n = name.strip()
-    # 应用别名映射
+    # 先检查显式别名映射
     if n in CHANNEL_NAME_ALIASES:
         return CHANNEL_NAME_ALIASES[n]
+    # 正则匹配CCTV系列频道变体：CCTV{N}{后缀}、CCTV-{N}{后缀}、CCTV {N}{后缀}
+    # 自动剥离后缀（综合、高清、财经等），统一为标准名称
+    m = re.match(r'^(CCTV)[-\s]*(\d+)\+?[-\s]*(.*?)$', n, re.IGNORECASE)
+    if m:
+        prefix = m.group(1).upper()
+        num = m.group(2)
+        result = f"{prefix}{num}"
+        if '+' in n:
+            result += '+'
+        return result
     # 去掉开头结尾的标点符号
     n = re.sub(r'^[-—\s]+|[-—\s]+$', '', n)
     return n
