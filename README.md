@@ -17,14 +17,16 @@
 
 ## 订阅地址
 
+> 注意：本仓库默认分支为 `master`，订阅地址中的分支名必须写 `master`（写 `main` 会返回 404）。
+
 M3U格式（推荐，带台标和EPG）：
 ```
-https://raw.githubusercontent.com/你的用户名/你的仓库名/main/my_channels.m3u
+https://raw.githubusercontent.com/OrangeWay520/my-iptv/master/my_channels.m3u
 ```
 
 TXT格式：
 ```
-https://raw.githubusercontent.com/你的用户名/你的仓库名/main/my_channels.txt
+https://raw.githubusercontent.com/OrangeWay520/my-iptv/master/my_channels.txt
 ```
 
 ## 在橙子网络电视中使用
