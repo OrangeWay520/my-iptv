@@ -688,6 +688,7 @@ def merge_entry(target_entries: dict, norm_name: str, entry: dict) -> bool:
             "name": norm_name,
             "display_name": entry["display_name"],
             "urls": list(entry["urls"]),
+            "url_qualities": list(entry.get("url_qualities", [])),
             "logo": entry["logo"],
             "tvg_id": entry["tvg_id"],
             "tvg_name": entry["tvg_name"],
@@ -696,9 +697,13 @@ def merge_entry(target_entries: dict, norm_name: str, entry: dict) -> bool:
     # 合并URL（不重复添加）
     existing = target_entries[norm_name]
     added = 0
-    for url in entry["urls"]:
+    for i, url in enumerate(entry["urls"]):
         if url not in existing["urls"]:
             existing["urls"].append(url)
+            qualities = entry.get("url_qualities", [])
+            existing["url_qualities"].append(
+                qualities[i] if i < len(qualities) else 2
+            )
             added += 1
     if added > 0:
         # 同步元数据
@@ -724,6 +729,29 @@ def is_usable_url(url: str) -> bool:
     if '[' in u:
         return False
     return True
+
+
+def url_quality_priority(name: str) -> int:
+    """根据频道名中的清晰度标注计算源优先级（数字越小越靠前）
+
+    iptv-org 等源的频道名带清晰度后缀（如 "CCTV-1 (1080p)"、"东方卫视 (2160p)"）。
+    优先级设计：
+      0 = 4K/8K/2160p 超高清（首选）
+      1 = 1080p 高清
+      2 = 无清晰度标注的普通源（vbskycn/咪咕等，质量较稳定）
+      3 = 720p
+      4 = 576i/540p/480p 等低清晰度（备用）
+    """
+    n = name.lower()
+    if any(k in n for k in ('4k', '8k', '2160p')):
+        return 0
+    if '1080' in n:
+        return 1
+    if '720' in n:
+        return 3
+    if any(k in n for k in ('576i', '576p', '540p', '480p', '360p')):
+        return 4
+    return 2
 
 
 def classify_and_merge(channels: list) -> dict:
@@ -796,12 +824,16 @@ def classify_and_merge(channels: list) -> dict:
                             "name": norm_name,
                             "display_name": display_name,
                             "urls": [],
+                            "url_qualities": [],
                             "logo": ch["logo"],
                             "tvg_id": ch["tvg_id"],
                             "tvg_name": ch["tvg_name"],
                         }
                     if ch["url"] not in local_entry[norm_name]["urls"]:
                         local_entry[norm_name]["urls"].append(ch["url"])
+                        local_entry[norm_name]["url_qualities"].append(
+                            url_quality_priority(ch["name"])
+                        )
                 continue
 
         entry = categorized[std_cat]
@@ -810,13 +842,15 @@ def classify_and_merge(channels: list) -> dict:
                 "name": norm_name,
                 "display_name": display_name,
                 "urls": [],
+                "url_qualities": [],
                 "logo": ch["logo"],
                 "tvg_id": ch["tvg_id"],
                 "tvg_name": ch["tvg_name"],
             }
-        # 添加URL
+        # 添加URL（记录清晰度优先级，后续按优先级排序：高清在前，低清备用）
         if ch["url"] not in entry[norm_name]["urls"]:
             entry[norm_name]["urls"].append(ch["url"])
+            entry[norm_name]["url_qualities"].append(url_quality_priority(ch["name"]))
         # 补充元数据（优先使用前面的源）
         if not entry[norm_name]["logo"] and ch["logo"]:
             entry[norm_name]["logo"] = ch["logo"]
@@ -850,9 +884,13 @@ def classify_and_merge(channels: list) -> dict:
             else:
                 # 合并到已有的地方频道条目
                 existing = local_entries[norm_name]
-                for url in entry["urls"]:
+                for i, url in enumerate(entry["urls"]):
                     if url not in existing["urls"]:
                         existing["urls"].append(url)
+                        qualities = entry.get("url_qualities", [])
+                        existing["url_qualities"].append(
+                            qualities[i] if i < len(qualities) else 2
+                        )
                 if not existing["logo"] and entry["logo"]:
                     existing["logo"] = entry["logo"]
                 if not existing["tvg_id"] and entry["tvg_id"]:
@@ -910,6 +948,13 @@ def classify_and_merge(channels: list) -> dict:
         entry = categorized[cat]
         items = list(entry.values())
         items.sort(key=lambda x: natural_sort_key(x["name"]))
+        # 每个频道的播放源按清晰度优先级排序：
+        # 4K/1080p 高清源放最前（首选），720p/标清源放最后（备用）
+        for it in items:
+            if len(it.get("url_qualities", [])) > 1:
+                pairs = sorted(zip(it["urls"], it["url_qualities"]), key=lambda p: p[1])
+                it["urls"] = [p[0] for p in pairs]
+                it["url_qualities"] = [p[1] for p in pairs]
         result[cat] = items
 
     return result
