@@ -40,6 +40,9 @@ SOURCE_URLS = [
     "https://iptv-org.github.io/iptv/countries/hk.m3u",
     "https://iptv-org.github.io/iptv/countries/mo.m3u",
     "https://iptv-org.github.io/iptv/countries/tw.m3u",
+
+    # sammy0101/hk-iptv-auto - 香港本地源，含翡翠台/明珠台/TVB系列（TVB版权严格，仅此源收录）
+    "https://raw.githubusercontent.com/sammy0101/hk-iptv-auto/refs/heads/main/hk_live.m3u",
 ]
 
 # 输出文件
@@ -442,10 +445,21 @@ HKMOTW_KNOWN_CHANNELS = {
     # 香港
     "凤凰中文": "凤凰中文",
     "凤凰资讯": "凤凰资讯",
+    "凤凰香港": "凤凰香港",
+    "星空衛視": "星空衛視",
+    "星空卫视": "星空衛視",
     "HOY TV": "HOY TV",
     "RTHK TV 31": "港台電視31",
     "RTHK TV 32": "港台電視32",
     "Celestial Movies": "天映频道",
+    # TVB 系列（翡翠台/明珠台等，版权严格，仅 sammy0101 源收录）
+    "翡翠台": "翡翠台",
+    "翡翠": "翡翠台",
+    "翡翠台北美版": "翡翠台北美版",
+    "TVB翡翠台 1080P": "翡翠台",
+    "明珠台": "明珠台",
+    "無線新聞": "無線新聞",
+    "無線 TVB Plus": "無線TVB Plus",
     # 澳门（澳广视 TDM 系列）
     "TDM Ou Mun Macau Ch. 91": "澳视澳门",
     "TDM Info. Macau": "澳视资讯",
@@ -463,6 +477,15 @@ HKMOTW_KNOWN_CHANNELS = {
     "TVBS News": "TVBS新闻",
     "CTi Variety": "中天综合台",
 }
+
+# 港澳台补充固定源（iptv-org index.m3u 中的频道，不在 hk/mo/tw 子集里）
+# 凤凰香港、星空衛視 只存在于完整 index.m3u 中，此处直接固定收录
+HKMOTW_FIXED_SOURCES = [
+    # 凤凰香港（iptv-org index.m3u，group=Undefined，无子集收录）
+    {"name": "凤凰香港", "url": "http://223.110.245.136/PLTV/3/224/3221226975/index.m3u8"},
+    # 星空衛視（iptv-org index.m3u）
+    {"name": "星空衛視", "url": "http://218.202.220.2:5000/nn_live.ts?id=STARTV"},
+]
 
 # ============================================================
 # 核心逻辑
@@ -572,6 +595,18 @@ def fetch_source(url: str) -> str | None:
         return None
 
 
+def clean_url(url: str) -> str:
+    """清洗播放地址：
+    - 部分源（如 sammy0101/hk-iptv-auto）在URL后用 $ 附加线路标签，
+      如 "http://.../live.m3u8$LR—IPV4【线路4】"，实际播放地址是 $ 之前的部分
+    """
+    u = url.strip()
+    if '$' in u:
+        # 只保留 $ 之前的实际播放地址
+        u = u.split('$')[0].strip()
+    return u
+
+
 def parse_m3u(content: str) -> tuple:
     """解析M3U内容，返回 (epg_url, channels_list)"""
     lines = content.splitlines()
@@ -609,7 +644,7 @@ def parse_m3u(content: str) -> tuple:
             if not name: name = tvg_name
 
             if i + 1 < len(lines):
-                url = lines[i + 1].strip()
+                url = clean_url(lines[i + 1].strip())
                 if url and not url.startswith("#"):
                     channels.append({
                         "name": name,
@@ -639,7 +674,7 @@ def parse_txt(content: str) -> list:
             continue
         parts = trimmed.split(",", 1)
         if len(parts) == 2:
-            name, url = parts[0].strip(), parts[1].strip()
+            name, url = parts[0].strip(), clean_url(parts[1].strip())
             if name and url and not url.startswith("#"):
                 channels.append({
                     "name": name, "url": url,
@@ -686,6 +721,18 @@ def collect_all_channels() -> list:
 
         print(f"  解析到 {len(channels)} 个频道")
         all_channels.extend(channels)
+
+    # 注入港澳台补充固定源（凤凰香港、星空衛視）
+    for fixed in HKMOTW_FIXED_SOURCES:
+        all_channels.append({
+            "name": fixed["name"],
+            "url": fixed["url"],
+            "category": "港澳台频道",
+            "logo": "",
+            "tvg_id": "",
+            "tvg_name": "",
+        })
+    print(f"  注入 {len(HKMOTW_FIXED_SOURCES)} 个港澳台固定源")
 
     # 使用第一个找到的EPG地址
     primary_epg = source_epg_urls[0] if source_epg_urls else ""

@@ -1629,7 +1629,7 @@ http://stream8.jlntv.cn/jytv/sd/live.m3u8?zjild
 #EXTINF:-1 tvg-id="靖宇综合" tvg-name="靖宇综合" tvg-logo="https://tb.zbds.top/logo/靖宇综合.png" group-title="地方频道",靖宇综合
 http://stream9.jlntv.cn:80/aac_jygb/playlist.m3u8
 
-# 分类: 港澳台频道 - 18 个频道, 18 个播放源
+# 分类: 港澳台频道 - 27 个频道, 52 个播放源
 
 #EXTINF:-1 tvg-id="CanalMacau.mo@SD" tvg-logo="https://i.imgur.com/oFPUZ97.png" group-title="港澳台频道",澳门有线92
 https://live3.tdm.com.mo/ch2/ch2.live/playlist.m3u8
@@ -1641,6 +1641,8 @@ rtmp://59.124.75.138:1935/sat/tv111
 http://seb.sason.top/sc/dscjxw_fhd.m3u8
 #EXTINF:-1 tvg-id="EBCNews.tw@SD" tvg-logo="https://i.imgur.com/QFZs80p.png" group-title="港澳台频道",东森新闻
 http://seb.sason.top/sc/dsxw_fhd.m3u8
+#EXTINF:-1 group-title="港澳台频道",凤凰香港
+http://223.110.245.136/PLTV/3/224/3221226975/index.m3u8
 #EXTINF:-1 tvg-id="PhoenixInfoNewsChannel.hk@SD" tvg-logo="https://i.imgur.com/mt4h3VO.png" group-title="港澳台频道",凤凰资讯
 http://223.110.245.167/ott.js.chinamobile.com/PLTV/3/224/3221226923/index.m3u8
 #EXTINF:-1 tvg-id="PhoenixChineseChannel.hk@SD" tvg-logo="https://raw.githubusercontent.com/wanglindl/TVlogo/main/img/Phoenix1.png" group-title="港澳台频道",凤凰中文
@@ -1649,6 +1651,16 @@ http://223.110.245.139/ott.js.chinamobile.com/PLTV/3/224/3221226922/index.m3u8
 http://seb.sason.top/ptv/ftv.php?id=ms
 #EXTINF:-1 tvg-id="HOYTV.hk@SD" tvg-logo="https://i.imgur.com/NfVZPTT.png" group-title="港澳台频道",HOY TV
 https://hoytv-live-stream.hoy.tv/ch77/index.m3u8
+#EXTINF:-1 tvg-id="HOYTV.hk@SD" tvg-logo="https://i.imgur.com/NfVZPTT.png" group-title="港澳台频道",HOY TV
+http://uc6.i-cable.com/live_freedirect/opentvhd001_h.live/playlist.m3u8
+#EXTINF:-1 tvg-id="HOYTV.hk@SD" tvg-logo="https://i.imgur.com/NfVZPTT.png" group-title="港澳台频道",HOY TV
+http://media.fantv.hk/m3u8/archive/channel2_stream1.m3u8
+#EXTINF:-1 tvg-id="HOYTV.hk@SD" tvg-logo="https://i.imgur.com/NfVZPTT.png" group-title="港澳台频道",HOY TV
+http://media.fantv.hk/m3u8/archive/channel2.m3u8
+#EXTINF:-1 tvg-id="HOYTV.hk@SD" tvg-logo="https://i.imgur.com/NfVZPTT.png" group-title="港澳台频道",HOY TV
+http://r.jdshipin.com/sFw4S
+#EXTINF:-1 tvg-id="HOYTV.hk@SD" tvg-logo="https://i.imgur.com/NfVZPTT.png" group-title="港澳台频道",HOY TV
+http://php.jdshipin.com/TVOD/iptv.php?id=hoytv
 #EXTINF:-1 tvg-id="TDMMacauSatellite.mo@SD" tvg-logo="https://i.imgur.com/iIfZsD6.png" group-title="港澳台频道",澳视卫星
 https://live3.tdm.com.mo/ch3/ch3.live/playlist.m3u8
 #EXTINF:-1 tvg-id="RTHKTV31.hk@SD" tvg-logo="https://i.imgur.com/kf818kM.png" group-title="港澳台频道",港台電視31
@@ -1667,6 +1679,62 @@ https://live3.tdm.com.mo/ch5/info_ch5.live/playlist.m3u8
 http://61.244.22.4/ch1/ch1.live/playlist.m3u8
 #EXTINF:-1 tvg-id="TVBSNews.tw@SD" tvg-logo="https://i.imgur.com/171lwfg.png" group-title="港澳台频道",TVBS新闻
 http://seb.sason.top/sc/tvbsxw_fhd.m3u8
+#EXTINF:-1 group-title="港澳台频道",翡翠台
+http://php.jdshipin.com:8880/TVOD/iptv.php?id=fct3
+#EXTINF:-1 group-title="港澳台频道",星空衛視
+http://218.202.220.2:5000/nn_live.ts?id=STARTV
+#EXTINF:-1 group-title="港澳台频道",明珠台
+http://r.jdshipin.com/GeWKr?id=mzt720
+#EXTINF:-1 group-title="港澳台频道",明珠台
+http://r.jdshipin.com/ZQ4kN
+#EXTINF:-1 group-title="港澳台频道",明珠台
+http://r.jdshipin.com/jUx8K
+#EXTINF:-1 group-title="港澳台频道",明珠台
+http://php.jdshipin.com/TVOD/iptv.php?id=mzt2
+#EXTINF:-1 group-title="港澳台频道",明珠台
+http://120.198.86.186:9901/tsfile/live/1009_1.m3u8?key=txiptv&playlive=1&authid=0
+#EXTINF:-1 group-title="港澳台频道",明珠台
+http://120.238.84.45:9901/tsfile/live/1000_1.m3u8?key=txiptv&playlive=1&authid=0
+#EXTINF:-1 group-title="港澳台频道",無線TVB Plus
+http://php.jdshipin.com/TVOD/iptv.php?id=tvbp
+#EXTINF:-1 group-title="港澳台频道",無線新聞
+http://r.jdshipin.com/CkuBd
+#EXTINF:-1 group-title="港澳台频道",無線新聞
+http://php.jdshipin.com/TVOD/iptv.php?id=wxxw
+#EXTINF:-1 group-title="港澳台频道",翡翠台
+http://php.jdshipin.com/TVOD/iptv.php?id=fct2
+#EXTINF:-1 group-title="港澳台频道",翡翠台
+http://php.jdshipin.com/TVOD/iptv.php?id=fct3
+#EXTINF:-1 group-title="港澳台频道",翡翠台
+http://php.jdshipin.com:8880/TVOD/iptv.php?id=fct
+#EXTINF:-1 group-title="港澳台频道",翡翠台
+http://r.jdshipin.com/GeWKr?id=fct720
+#EXTINF:-1 group-title="港澳台频道",翡翠台
+http://r.jdshipin.com/qClQf
+#EXTINF:-1 group-title="港澳台频道",翡翠台
+http://r.jdshipin.com/qrfbg
+#EXTINF:-1 group-title="港澳台频道",翡翠台
+http://r.jdshipin.com/62WM7
+#EXTINF:-1 group-title="港澳台频道",翡翠台
+http://r.jdshipin.com/n90gt
+#EXTINF:-1 group-title="港澳台频道",翡翠台
+http://r.jdshipin.com/GeWKr
+#EXTINF:-1 group-title="港澳台频道",翡翠台
+http://php.jdshipin.com:8880/TVOD/iptv.php?id=fct4
+#EXTINF:-1 group-title="港澳台频道",翡翠台
+http://120.198.86.186:9901/tsfile/live/1007_1.m3u8?key=txiptv&playlive=1&authid=0
+#EXTINF:-1 group-title="港澳台频道",翡翠台
+http://120.238.84.45:9901/tsfile/live/1103_1.m3u8?key=txiptv&playlive=1&authid=0
+#EXTINF:-1 group-title="港澳台频道",翡翠台
+http://120.196.235.42:9901/tsfile/live/1006_1.m3u8?key=txiptv&playlive=1&authid=0
+#EXTINF:-1 group-title="港澳台频道",翡翠台
+http://120.237.39.10:9901/tsfile/live/1004_1.m3u8?key=txiptv&playlive=1&down=1
+#EXTINF:-1 group-title="港澳台频道",翡翠台
+http://120.198.95.220:9901/tsfile/live/1004_1.m3u8?key=txiptv&playlive=1&down=1
+#EXTINF:-1 group-title="港澳台频道",翡翠台
+http://183.234.143.5:9902/tsfile/live/0001_1.m3u8?key=txiptv&playlive=1&authid=0
+#EXTINF:-1 group-title="港澳台频道",翡翠台北美版
+http://php.jdshipin.com:8880/TVOD/iptv.php?id=j1
 
 # 分类: 少儿频道 - 22 个频道, 47 个播放源
 
