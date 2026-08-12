@@ -35,6 +35,11 @@ SOURCE_URLS = [
 
     # AudiHub/iptv (migu) - 咪咕稳定源，补充央视和卫视
     "https://gh-proxy.org/https://raw.githubusercontent.com/AudiHub/iptv/main/m3u/migu.m3u",
+
+    # iptv-org/iptv (港澳台) - 补充香港/澳门/台湾知名频道
+    "https://iptv-org.github.io/iptv/countries/hk.m3u",
+    "https://iptv-org.github.io/iptv/countries/mo.m3u",
+    "https://iptv-org.github.io/iptv/countries/tw.m3u",
 ]
 
 # 输出文件
@@ -431,6 +436,34 @@ KNOWN_THEME_CHANNELS = {
     "CGTN纪录": "纪录频道",   # CGTN纪录
 }
 
+# 港澳台知名频道（iptv-org 港澳台源，英文名 → 中文显示名）
+# 只有这些知名频道才会被归入"港澳台频道"分类，避免混入宗教/小众频道
+HKMOTW_KNOWN_CHANNELS = {
+    # 香港
+    "凤凰中文": "凤凰中文",
+    "凤凰资讯": "凤凰资讯",
+    "HOY TV": "HOY TV",
+    "RTHK TV 31": "港台電視31",
+    "RTHK TV 32": "港台電視32",
+    "Celestial Movies": "天映频道",
+    # 澳门（澳广视 TDM 系列）
+    "TDM Ou Mun Macau Ch. 91": "澳视澳门",
+    "TDM Info. Macau": "澳视资讯",
+    "TDM Entertainment Ch. 95": "澳视综艺",
+    "TDM Sports Ch. 93": "澳视体育",
+    "Ou-Mun Macau Satellite Ch. 96": "澳视卫星",
+    "Canal Macau Ch. 92": "澳门有线92",
+    # 台湾
+    "台视": "台视",
+    "CTS": "华视",
+    "FTV": "民视",
+    "EBC News": "东森新闻",
+    "EBC Financial News": "东森财经新闻",
+    "SET News": "三立新闻",
+    "TVBS News": "TVBS新闻",
+    "CTi Variety": "中天综合台",
+}
+
 # ============================================================
 # 核心逻辑
 # ============================================================
@@ -769,6 +802,11 @@ def classify_and_merge(channels: list) -> dict:
         # iptv-org 等英文分类源：按频道名推断央视/卫视
         if std_cat is None:
             std_cat = infer_category_from_name(ch["name"])
+        # iptv-org 港澳台源：按频道名识别知名港澳台频道
+        if std_cat is None:
+            cleaned_name = re.sub(r'[\(\[][^\)\]]*[\)\]]', '', ch["name"]).strip()
+            if cleaned_name in HKMOTW_KNOWN_CHANNELS:
+                std_cat = "港澳台频道"
         if std_cat is None:
             continue
         if should_exclude(ch["name"]):
@@ -783,7 +821,11 @@ def classify_and_merge(channels: list) -> dict:
         # CCTV 系列（CCTV1、CCTV5+、CCTV风云足球等）一律用规范名，保证跨源显示一致
         # 英文频道名（如 "Jiangxi Children's Channel"）映射为中文后使用中文名
         display_name = ch["name"]
-        if re.search(r'[\(\[][^\)\]]*[\)\]]', display_name):
+        # 港澳台频道：优先使用映射的中文名
+        cleaned_name = re.sub(r'[\(\[][^\)\]]*[\)\]]', '', display_name).strip()
+        if cleaned_name in HKMOTW_KNOWN_CHANNELS:
+            display_name = HKMOTW_KNOWN_CHANNELS[cleaned_name]
+        elif re.search(r'[\(\[][^\)\]]*[\)\]]', display_name):
             display_name = norm_name
         elif norm_name.startswith("CCTV") and norm_name != display_name:
             display_name = norm_name
