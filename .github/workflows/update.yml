@@ -1,9 +1,9 @@
 name: 更新自定义IPTV播放列表
 
 on:
-  # 每6小时自动更新一次
+  # 每2小时自动更新一次
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '0 */2 * * *'
   # 手动触发更新
   workflow_dispatch:
   # 推送代码时触发
