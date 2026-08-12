@@ -670,6 +670,17 @@ def classify_and_merge(channels: list) -> dict:
 
     for ch in channels:
         std_cat = match_category(ch["category"])
+        # 名称含主题关键词的频道优先归入主题分类
+        # 解决上游"数字"/"其它"/"内蒙频道"等分类匹配不到、或被误归付费频道的问题
+        # 例如："动画高清"、"新动漫"、"嘉佳卡通"、"内蒙少儿"
+        if std_cat is None or std_cat == "付费频道":
+            theme_match = None
+            for theme_cat, keywords in THEME_CATEGORY_KEYWORDS.items():
+                if any(kw in ch["name"] for kw in keywords):
+                    theme_match = theme_cat
+                    break
+            if theme_match:
+                std_cat = theme_match
         if std_cat is None:
             continue
         if should_exclude(ch["name"]):
