@@ -33,9 +33,6 @@ SOURCE_URLS = [
     # iptv-org/iptv (中国频道) - 补充CCTV/卫视直链源，频道名带清晰度后缀
     "https://iptv-org.github.io/iptv/countries/cn.m3u",
 
-    # AudiHub/iptv (migu) - 咪咕稳定源，补充央视和卫视
-    "https://gh-proxy.org/https://raw.githubusercontent.com/AudiHub/iptv/main/m3u/migu.m3u",
-
     # iptv-org/iptv (港澳台) - 补充香港/澳门/台湾知名频道
     "https://iptv-org.github.io/iptv/countries/hk.m3u",
     "https://iptv-org.github.io/iptv/countries/mo.m3u",
