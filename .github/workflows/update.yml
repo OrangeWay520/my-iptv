@@ -25,8 +25,11 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: 生成播放列表
+      - name: 抓取上游源数据（生成完整播放列表）
         run: python generate_m3u.py
+
+      - name: 按 demo.txt 白名单生成最终播放列表
+        run: python generate_from_demo.py
 
       - name: 提交更新
         env:
