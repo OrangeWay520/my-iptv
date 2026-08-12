@@ -660,6 +660,21 @@ def merge_entry(target_entries: dict, norm_name: str, entry: dict) -> bool:
     return False
 
 
+def is_usable_url(url: str) -> bool:
+    """过滤车机/家庭网络不可用的播放地址：
+    - RTP 组播地址（rtp://239.x.x.x）需要局域网组播支持，普通车机无法播放
+    - IPv6 地址（[2409:...] 或裸 IPv6）在多数车机网络环境不可用
+    """
+    u = url.strip().lower()
+    if u.startswith('rtp://'):
+        return False
+    # IPv6 地址特征：任何包含 [ ] 的 URL（无论是否带端口）
+    # 例如 http://[2409:...]:8080/... 或 http://[2409:...]/path
+    if '[' in u:
+        return False
+    return True
+
+
 def classify_and_merge(channels: list) -> dict:
     """
     将频道按分类归类，跨源合并同名频道
@@ -669,6 +684,9 @@ def classify_and_merge(channels: list) -> dict:
     categorized = {cat: {} for cat in WANTED_CATEGORIES}  # {cat: {normalized_name: entry}}
 
     for ch in channels:
+        # 过滤车机不可用的播放地址（RTP 组播 / IPv6）
+        if not is_usable_url(ch["url"]):
+            continue
         std_cat = match_category(ch["category"])
         # 名称含主题关键词的频道优先归入主题分类
         # 解决上游"数字"/"其它"/"内蒙频道"等分类匹配不到、或被误归付费频道的问题
