@@ -141,6 +141,8 @@ EXCLUDE_KEYWORDS = [
     "B站", "斗鱼", "虎牙", "哔哩哔哩",
     # 轮播解说频道（非正式电视节目）
     "解说", "轮播",
+    # 虎牙等直播平台的轮播频道（"XX「XX」"格式命名，非正式电视频道）
+    "「",
 ]
 
 # 需要排除的频道名称（精确匹配）
@@ -380,6 +382,31 @@ LOCAL_PLACE_NAMES = [
     "兵团", "三沙", "澳门", "香港",
 ]
 
+# 主题分类交叉关键词（双分类）
+# 地方频道/卫视频道/港澳台频道中带这些主题关键词的频道，同时归入对应主题分类
+# 例如：北京卡酷少儿 → 既在地方频道，也在少儿频道
+THEME_CATEGORY_KEYWORDS = {
+    "少儿频道": ["少儿", "儿童", "卡通", "动漫", "动画", "亲子", "卡酷", "优漫"],
+    "体育频道": ["体育", "赛事", "竞技", "运动"],
+    "电影频道": ["电影", "影视", "影院", "影迷", "家庭影院", "CHC"],
+    "音乐频道": ["音乐", "演唱会", "MTV"],
+    "纪录频道": ["纪录", "纪实", "科教", "纪录片", "探索", "发现"],
+}
+
+# 已知频道归属（归一化后名称可能丢失主题信息，需手动指定）
+# 键为归一化后的频道名，值为主题分类
+# 用于：央视少儿→少儿频道、央视体育→体育频道 等
+KNOWN_THEME_CHANNELS = {
+    "CCTV14": "少儿频道",    # 央视少儿
+    "CCTV5": "体育频道",     # 央视体育
+    "CCTV5+": "体育频道",    # 央视体育赛事
+    "CCTV6": "电影频道",     # 央视电影
+    "CCTV9": "纪录频道",     # 央视纪录
+    "CCTV10": "纪录频道",    # 央视科教
+    "CCTV15": "音乐频道",    # 央视音乐
+    "CGTN纪录": "纪录频道",   # CGTN纪录
+}
+
 # ============================================================
 # 核心逻辑
 # ============================================================
@@ -601,6 +628,38 @@ def is_local_channel_name(name: str) -> bool:
     return False
 
 
+def merge_entry(target_entries: dict, norm_name: str, entry: dict) -> bool:
+    """
+    将条目加入目标分类（若已存在则合并URL），返回是否新增
+    """
+    if norm_name not in target_entries:
+        target_entries[norm_name] = {
+            "name": norm_name,
+            "display_name": entry["display_name"],
+            "urls": list(entry["urls"]),
+            "logo": entry["logo"],
+            "tvg_id": entry["tvg_id"],
+            "tvg_name": entry["tvg_name"],
+        }
+        return True
+    # 合并URL（不重复添加）
+    existing = target_entries[norm_name]
+    added = 0
+    for url in entry["urls"]:
+        if url not in existing["urls"]:
+            existing["urls"].append(url)
+            added += 1
+    if added > 0:
+        # 同步元数据
+        if not existing["logo"] and entry["logo"]:
+            existing["logo"] = entry["logo"]
+        if not existing["tvg_id"] and entry["tvg_id"]:
+            existing["tvg_id"] = entry["tvg_id"]
+        if not existing["tvg_name"] and entry["tvg_name"]:
+            existing["tvg_name"] = entry["tvg_name"]
+    return False
+
+
 def classify_and_merge(channels: list) -> dict:
     """
     将频道按分类归类，跨源合并同名频道
@@ -708,33 +767,47 @@ def classify_and_merge(channels: list) -> dict:
         if to_move:
             print(f"  将 {len(to_move)} 个非省级卫视移至地方频道: {', '.join(to_move[:5])}...")
 
-    # 第三步：双分类 - 少儿频道/电影频道中的地方频道也归入地方频道
-    DUAL_CLASSIFY_CATEGORIES = ["少儿频道", "电影频道"]
-    for src_cat in DUAL_CLASSIFY_CATEGORIES:
-        if src_cat in categorized and "地方频道" in categorized:
-            src_entries = categorized[src_cat]
-            local_entries = categorized["地方频道"]
-            dual_count = 0
-            for norm_name, entry in list(src_entries.items()):
-                if is_local_channel_name(norm_name):
-                    if norm_name not in local_entries:
-                        local_entries[norm_name] = {
-                            "name": norm_name,
-                            "display_name": entry["display_name"],
-                            "urls": list(entry["urls"]),
-                            "logo": entry["logo"],
-                            "tvg_id": entry["tvg_id"],
-                            "tvg_name": entry["tvg_name"],
-                        }
-                        dual_count += 1
-                    else:
-                        # 合并URL到已有的地方频道条目
-                        existing = local_entries[norm_name]
-                        for url in entry["urls"]:
-                            if url not in existing["urls"]:
-                                existing["urls"].append(url)
-            if dual_count > 0:
-                print(f"  将 {dual_count} 个{src_cat}中的地方频道同时归入地方频道")
+    # 第三步：双向双分类交叉归类
+    # (A) 主题分类交叉：地方频道/卫视频道/港澳台频道/央视频道中
+    #     带主题关键词的频道（如"北京卡酷少儿"），同时归入对应主题分类（少儿/体育/电影等）
+    THEME_SOURCE_CATS = ["央视频道", "卫视频道", "地方频道", "港澳台频道"]
+    cross_count = 0
+    for src_cat in THEME_SOURCE_CATS:
+        if src_cat not in categorized:
+            continue
+        src_entries = categorized[src_cat]
+        for norm_name, entry in list(src_entries.items()):
+            # 1) 已知频道归属（央视少儿/体育等归一化后名称丢失主题信息的频道）
+            known_theme = KNOWN_THEME_CHANNELS.get(norm_name)
+            if known_theme and known_theme != src_cat and known_theme in categorized:
+                if merge_entry(categorized[known_theme], norm_name, entry):
+                    cross_count += 1
+                continue
+            # 2) 关键词匹配（用显示名和归一化名）
+            match_text = entry["display_name"] + " " + norm_name
+            for theme_cat, keywords in THEME_CATEGORY_KEYWORDS.items():
+                if theme_cat == src_cat:
+                    continue
+                if any(kw in match_text for kw in keywords):
+                    if merge_entry(categorized[theme_cat], norm_name, entry):
+                        cross_count += 1
+                    break  # 一个频道只交叉到第一个匹配的主题分类
+    if cross_count > 0:
+        print(f"  将 {cross_count} 个频道同时归入主题分类（双分类）")
+
+    # (B) 地方交叉：所有主题分类（少儿/体育/电影/音乐/纪录）中的
+    #     地方频道（如"广东少儿"），同时归入地方频道
+    local_entries = categorized.get("地方频道", {})
+    local_cross_count = 0
+    for theme_cat in THEME_CATEGORY_KEYWORDS.keys():
+        if theme_cat not in categorized:
+            continue
+        for norm_name, entry in list(categorized[theme_cat].items()):
+            if is_local_channel_name(norm_name) or is_local_channel_name(entry["display_name"]):
+                if merge_entry(local_entries, norm_name, entry):
+                    local_cross_count += 1
+    if local_cross_count > 0:
+        print(f"  将 {local_cross_count} 个主题分类中的地方频道同时归入地方频道")
 
     # 转换为列表格式
     result = {}
