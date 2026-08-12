@@ -30,6 +30,9 @@ SOURCE_URLS = [
     # vbskycn/iptv (TXT源) - 补充多源地址（如CCTV1有5个IPv4源），与m3u配合实现多源
     "https://live.zbds.top/tv/iptv4.txt",
 
+    # iptv-org/iptv (中国频道) - 补充CCTV/卫视直链源，频道名带清晰度后缀
+    "https://iptv-org.github.io/iptv/countries/cn.m3u",
+
     # fanmingming/live - 补充源，频道齐全，台标完善
     "https://raw.githubusercontent.com/fanmingming/live/main/tv/m3u/ipv6.m3u",
 
@@ -89,22 +92,32 @@ CATEGORY_ALIASES = {
     "少儿频道": [
         "少儿频道", "少儿", "儿童", "卡通", "动漫", "动画",
         "少儿台", "动漫秀场", "卡通台", "亲子", "育儿",
+        # iptv-org 英文分类
+        "kids",
     ],
     "体育频道": [
         "体育频道", "体育", "赛事", "体育台",
         "体育赛事", "竞技", "体育竞技",
+        # iptv-org 英文分类
+        "sports",
     ],
     "电影频道": [
         "电影频道", "电影", "影视", "影视台",
         "CHC", "动作电影", "家庭影院", "电影台",
         "影院", "影视剧",
+        # iptv-org 英文分类
+        "movies", "cinema",
     ],
     "音乐频道": [
         "音乐频道", "音乐", "音乐台",
+        # iptv-org 英文分类
+        "music",
     ],
     "纪录频道": [
         "纪录频道", "纪录", "纪录片", "纪实", "科教",
         "纪实台", "科教台", "探索", "纪录电影",
+        # iptv-org 英文分类
+        "documentary",
     ],
     "付费频道": [
         "付费频道", "付费", "数字付费", "收费频道", "VIP频道",
@@ -133,6 +146,26 @@ CHANNEL_NAME_ALIASES = {
     "CHC家庭影院": "CHC家庭影院",
     "CHC影迷电影": "CHC影迷电影",
     "CHC高清电影": "CHC电影",
+    # iptv-org 英文频道名 → 中文名
+    "CCTV-Storm Football": "CCTV风云足球",
+    "CCTV-Storm Music": "风云音乐",
+    "CCTV-Storm Theater": "风云剧场",
+    "CCTV-Weapon & Technology": "兵器科技",
+    "CCTV-Nostalgia Theater": "CCTV怀旧剧场",
+    "CCTV-The First Theater": "CCTV第一剧场",
+    "CCTV-World Geography": "CCTV世界地理",
+    "CCTV-Culture of Quality": "CCTV文化精品",
+    "CCTV-Billiards": "CCTV台球",
+    "CCTV-Golf & Tennis": "CCTV高尔夫网球",
+    "CCTV-Health": "CCTV卫生健康",
+    "CCTV-Women's Fashion": "CCTV女性时尚",
+    "CCTV-4K": "CCTV4K",
+    "CCTV-8K": "CCTV8K",
+    "BRTV 北京卫视": "北京卫视",
+    "BRTV Kaku Childrens Channel": "卡酷少儿",
+    # iptv-org 英文地方台名 → 中文名
+    "Jiangxi Children's Channel": "江西少儿",
+    "QTV-6": "青岛少儿",
 }
 
 # 需要排除的频道关键词
@@ -455,12 +488,16 @@ def natural_sort_key(name: str) -> list:
 def normalize_name(name: str) -> str:
     """归一化频道名，去掉多余空格和特殊字符"""
     n = name.strip()
+    # 去掉清晰度/限制后缀（如 iptv-org 的 "CCTV-1 (1080p)"、"BRTV 北京卫视 (1080p)"）
+    # 统一去掉括号内的内容，如 (1080p)、(720p)、[Not 24/7]、[Geo-blocked]
+    n = re.sub(r'\s*[\(\[][^\)\]]*[\)\]]', '', n).strip()
     # 先检查显式别名映射
     if n in CHANNEL_NAME_ALIASES:
         return CHANNEL_NAME_ALIASES[n]
     # 正则匹配CCTV系列频道变体：CCTV{N}{后缀}、CCTV-{N}{后缀}、CCTV {N}{后缀}
     # 自动剥离后缀（综合、高清、财经等），统一为标准名称
-    m = re.match(r'^(CCTV)[-\s]*(\d+)\+?[-\s]*(.*?)$', n, re.IGNORECASE)
+    # 使用 (?![A-Za-z]) 负向断言，避免 "CCTV-4K" 被误解析为 "CCTV4"
+    m = re.match(r'^(CCTV)[-\s]*(\d+)(?![A-Za-z])\+?[-\s]*(.*?)$', n, re.IGNORECASE)
     if m:
         prefix = m.group(1).upper()
         num = m.group(2)
@@ -480,6 +517,17 @@ def match_category(group_title: str) -> str | None:
         for alias in aliases:
             if alias.lower() in gt or gt in alias.lower():
                 return std_cat
+    return None
+
+
+def infer_category_from_name(name: str) -> str | None:
+    """根据频道名推断分类（用于 iptv-org 等英文分类源）"""
+    norm = normalize_name(name)
+    lower = norm.lower()
+    if lower.startswith('cctv') or 'cgtn' in lower or lower.startswith('cetv'):
+        return "央视频道"
+    if '卫视' in norm:
+        return "卫视频道"
     return None
 
 
@@ -702,6 +750,9 @@ def classify_and_merge(channels: list) -> dict:
                     break
             if theme_match:
                 std_cat = theme_match
+        # iptv-org 等英文分类源：按频道名推断央视/卫视
+        if std_cat is None:
+            std_cat = infer_category_from_name(ch["name"])
         if std_cat is None:
             continue
         if should_exclude(ch["name"]):
@@ -710,6 +761,18 @@ def classify_and_merge(channels: list) -> dict:
         norm_name = normalize_name(ch["name"])
         if not norm_name:
             continue
+
+        # 显示名：iptv-org 等源的频道名带清晰度后缀（如 "CCTV-14 (1080p)"、"东方卫视 (2160p)"），
+        # 统一使用标准化名作为显示名，避免同一频道出现多种带后缀的显示名
+        # CCTV 系列（CCTV1、CCTV5+、CCTV风云足球等）一律用规范名，保证跨源显示一致
+        # 英文频道名（如 "Jiangxi Children's Channel"）映射为中文后使用中文名
+        display_name = ch["name"]
+        if re.search(r'[\(\[][^\)\]]*[\)\]]', display_name):
+            display_name = norm_name
+        elif norm_name.startswith("CCTV") and norm_name != display_name:
+            display_name = norm_name
+        elif re.search(r'[\u4e00-\u9fff]', norm_name) and not re.search(r'[\u4e00-\u9fff]', display_name):
+            display_name = norm_name
 
         # 频道归属强制覆盖
         override_cat = CHANNEL_CATEGORY_OVERRIDE.get(norm_name)
@@ -731,7 +794,7 @@ def classify_and_merge(channels: list) -> dict:
                     if norm_name not in local_entry:
                         local_entry[norm_name] = {
                             "name": norm_name,
-                            "display_name": ch["name"],
+                            "display_name": display_name,
                             "urls": [],
                             "logo": ch["logo"],
                             "tvg_id": ch["tvg_id"],
@@ -745,7 +808,7 @@ def classify_and_merge(channels: list) -> dict:
         if norm_name not in entry:
             entry[norm_name] = {
                 "name": norm_name,
-                "display_name": ch["name"],  # 保留原始显示名
+                "display_name": display_name,
                 "urls": [],
                 "logo": ch["logo"],
                 "tvg_id": ch["tvg_id"],
