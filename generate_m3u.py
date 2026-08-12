@@ -27,6 +27,9 @@ SOURCE_URLS = [
     # vbskycn/iptv (镜像) - 备用CDN，同上数据
     "https://live.zbds.top/tv/iptv4.m3u",
 
+    # vbskycn/iptv (TXT源) - 补充多源地址（如CCTV1有5个IPv4源），与m3u配合实现多源
+    "https://live.zbds.top/tv/iptv4.txt",
+
     # fanmingming/live - 补充源，频道齐全，台标完善
     "https://raw.githubusercontent.com/fanmingming/live/main/tv/m3u/ipv6.m3u",
 
@@ -890,7 +893,7 @@ def generate_m3u(categorized: dict, epg_url: str) -> str:
 
 
 def generate_txt(categorized: dict, output_path: str):
-    """生成TXT格式"""
+    """生成TXT格式（与vbskycn兼容：每个源单独一行，同名频道重复多次）"""
     lines = []
     for cat in WANTED_CATEGORIES:
         items = categorized.get(cat, [])
@@ -898,7 +901,9 @@ def generate_txt(categorized: dict, output_path: str):
             continue
         lines.append(f"{cat},#genre#")
         for it in items:
-            lines.append(f"{it['display_name']},{it['urls'][0]}")
+            # 输出该频道全部源地址，同名频道多次出现（App端解析后会合并为多源）
+            for url in it["urls"]:
+                lines.append(f"{it['display_name']},{url}")
         lines.append("")
     with open(output_path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines))
