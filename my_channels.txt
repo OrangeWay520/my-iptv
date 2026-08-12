@@ -144,14 +144,12 @@ CGTN,http://gslbmgsplive.miguvideo.com/envivo_x/2018/SD/cctvnews/1000/index.m3u8
 CGTN法语,https://0472.org/hls/cgtnf.m3u8
 CGTN法语,http://espanol-liveali.cgtn.com/hls/LSveOGBaBw41Ea7ukkVAUdKQ220802LSTexu6xAuFH8VZNBLE1ZNEa220802cd.m3u8
 CGTN法语,http://gslbmgsplive.miguvideo.com/envivo_v/2018/SD/cctv/fayu/1000/index.m3u8?msisdn=ecbe6e8bb35a073afef6deae8344a6a4&mdspid=&spid=699004&netType=0&sid=2200179324&pid=2028597139&timestamp=20260812102049&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=609006476&ParentNodeID=-99&assertID=2200179324&client_ip=39.103.182.111&SecurityKey=20260812102049&promotionId=&mvid=2200179324&mcid=500020&playurlVersion=WX-A1-9.8.0-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=3a4388aea541e0e15010ff795b95fa3b&ddCalcu=b33ava4af3y58a98ba5e9a75f4f10e100e51&sv=10004&ct=android
-CGTN记录,https://0472.org/hls/cgtnd.m3u8
 CGTN西语,https://0472.org/hls/cgtnx.m3u8
 CGTN西班牙语,http://gslbmgsplive.miguvideo.com/envivo_v/2018/SD/cctv/xibanya/1000/index.m3u8?msisdn=8d64918494eb740f560bc1162ac27156&mdspid=&spid=699004&netType=0&sid=2200179337&pid=2028597139&timestamp=20260812102048&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=609006450&ParentNodeID=-99&assertID=2200179337&client_ip=39.103.188.159&SecurityKey=20260812102048&promotionId=&mvid=2200179337&mcid=500020&playurlVersion=WX-A1-9.8.0-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=4108ecffff40a1e5c10cf4346b28740d&ddCalcu=d401v40a78y8ea2cbf6f4f3f44f0ca011ec5&sv=10004&ct=android
 CGTN俄语,https://0472.org/hls/cgtne.m3u8
 CGTN俄语,http://russian-livews.cgtn.com/hls/LSvexABhNipibK5KRuUkvHZ7220802LSTeze9o8tdFXMHsb1VosgoT220802cd.m3u8
 CGTN俄语,http://gslbmgsplive.miguvideo.com/envivo_v/2018/SD/cctv/eyu/1000/index.m3u8?msisdn=53ed4c4013f09cfef0c7e90f49223c80&mdspid=&spid=699004&netType=0&sid=2200179332&pid=2028597139&timestamp=20260812102049&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=609006446&ParentNodeID=-99&assertID=2200179332&client_ip=39.103.188.159&SecurityKey=20260812102049&promotionId=&mvid=2200179332&mcid=500020&playurlVersion=WX-A1-9.8.0-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=c5df54e3e500b4a8d79bd118bdcff823&ddCalcu=3c25v8daffyf5ac4deb38e1510d0bb947ad8&sv=10004&ct=android
 CGTN外语纪录,http://gslbmgsplive.miguvideo.com/envivo_v/2018/SD/cctv/doc/1000/index.m3u8?msisdn=246cc3300111af6d3195d950c5f5eedf&mdspid=&spid=699004&netType=0&sid=2200179356&pid=2028597139&timestamp=20260812102048&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=609006487&ParentNodeID=-99&assertID=2200179356&client_ip=47.92.23.141&SecurityKey=20260812102048&promotionId=&mvid=2200179356&mcid=500020&playurlVersion=WX-A1-9.8.0-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=a8cfa16c3a6e1cacd014f183d92ece30&ddCalcu=0a38vecacfyeaa2196dc338a16fe411c0adc&sv=10004&ct=android
-CGTN英语,https://0472.org/hls/cgtn.m3u8
 CGTN阿语,https://0472.org/hls/cgtna.m3u8
 CGTN阿拉伯语,http://gslbmgsplive.miguvideo.com/envivo_v/SD/cctv/alabo/1000/index.m3u8?msisdn=a92a50bf0de03868450c231f4bc8a2ef&mdspid=&spid=699004&netType=0&sid=2200179303&pid=2028597139&timestamp=20260812102048&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=609154345&ParentNodeID=-99&assertID=2200179303&client_ip=39.103.182.111&SecurityKey=20260812102048&promotionId=&mvid=2200179303&mcid=500020&playurlVersion=WX-A1-9.8.0-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=a91d615f28f279cc6b0af6a56730f821&ddCalcu=1a29v81afdb06a31756f52a86ff2a709bc6c&sv=10004&ct=android
 发现之旅,http://gslbmgsplive.miguvideo.com/wd_r3/cnr/faxianzhilv/2000/index.m3u8?msisdn=0b4bb58afb4115e2b8971ba78bd553bd&mdspid=&spid=699004&netType=0&sid=5500212893&pid=2028597139&timestamp=20260812102050&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=624878970&ParentNodeID=-99&assertID=5500212893&client_ip=39.103.188.159&SecurityKey=20260812102050&promotionId=&mvid=5100001701&mcid=500020&playurlVersion=WX-A1-9.8.0-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=a2cb0b9be8f1e148555b3c92aac3edf1&ddCalcu=1af2vdcaebl30acba9ab2e98cf31be515458&sv=10004&ct=android
@@ -390,9 +388,6 @@ CGTN阿拉伯语,http://gslbmgsplive.miguvideo.com/envivo_v/SD/cctv/alabo/1000/i
 大湾区卫视,http://222.128.55.152:9080/live/dwq.m3u8
 大湾区卫视,http://gslbmgsplive.miguvideo.com/wd_r3/2018/nfmedia/nfws/1000/index.m3u8?msisdn=9a9697494dfe32a3c25939ad33728dd3&mdspid=&spid=699054&netType=0&sid=2200322852&pid=2028597139&timestamp=20260812102054&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=608917627&ParentNodeID=-99&assertID=2200322852&client_ip=39.103.182.111&SecurityKey=20260812102054&promotionId=&mvid=2200322852&mcid=500020&playurlVersion=WX-A1-9.8.0-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=2e4c763d13f2de999c21827880fb8d5e&ddCalcu=e25evd4a8cwb7af6038d81732f821d2ec999&sv=10004&ct=android
 第一财经,http://satellitepull.cnr.cn/live/wx32dycjgb/playlist.m3u8
-第一财经,http://223.166.234.9:7777/tsfile/live/1029_1.m3u8?key=txiptv&playlive=1&authid=0%24LR%E2%80%A2IPV4%E3%80%8E%E7%BA%BF%E8%B7%AF10%E3%80%8F
-东方财经,http://223.166.234.9:7777/tsfile/live/1031_1.m3u8?key=txiptv&playlive=1&authid=0%24LR%E2%80%A2IPV4%E3%80%8E%E7%BA%BF%E8%B7%AF12%E3%80%8F
-东方影视,http://223.166.234.9:7777/tsfile/live/1028_1.m3u8?key=txiptv&playlive=1&authid=0%24LR%E2%80%A2IPV4%E3%80%8E%E7%BA%BF%E8%B7%AF11%E3%80%8F
 东丰,http://stream5.jlntv.cn/df/sd/live.m3u8?zjild
 东丰综合,http://stream3.jlntv.cn:80/aac_dfgb/playlist.m3u8
 东莞生活资讯,https://stream.sun0769.com/dgrtv1/mp4tv2_800/index.m3u8
@@ -490,7 +485,6 @@ CGTN阿拉伯语,http://gslbmgsplive.miguvideo.com/envivo_v/SD/cctv/alabo/1000/i
 龙井,http://stream8.jlntv.cn/ljtv/sd/live.m3u8?zjild
 龙井综合,http://stream9.jlntv.cn:80/aac_longjinggb/playlist.m3u8
 龙泉新闻综合,http://l.cztvcloud.com/channels/lantian/SXlongquan1/720p.m3u8
-蒙语卫视,https://livestream-bt.nmtv.cn/nmtv/2315general.m3u8?txSecret=4971666599ef9411629213c9a300bf66&txTime=771EF880
 南方卫视,http://120.237.39.10:9901/tsfile/live/1012_1.m3u8?key=txiptv&playlive=1&down=1
 南方卫视,http://120.198.95.220:9901/tsfile/live/1012_1.m3u8?key=txiptv&playlive=1&down=1
 南方卫视,http://183.234.143.5:9902/tsfile/live/1033_1.m3u8?key=txiptv&playlive=0&authid=0
@@ -521,8 +515,6 @@ CGTN阿拉伯语,http://gslbmgsplive.miguvideo.com/envivo_v/SD/cctv/alabo/1000/i
 山东生活,http://ls.qingting.fm/live/60260.m3u8
 山东体育,http://livealone302.iqilu.com/iqilu/typd.m3u8
 上海第一财经,https://satellitepull.cnr.cn/live/wx32dycjgb/playlist.m3u8
-上海教育,http://61.173.144.157:9901/tsfile/live/1007_1.m3u8?key=txiptv&playlive=1&authid=0%24LR%E2%80%A2IPV4%E3%80%8E%E7%BA%BF%E8%B7%AF1%E3%80%8F
-上海新闻,http://61.173.144.157:9901/tsfile/live/1000_1.m3u8
 上虞文化影院,http://l.cztvcloud.com/channels/lantian/SXshangyu2/720p.m3u8
 上虞新闻综合,http://l.cztvcloud.com/channels/lantian/SXshangyu1/720p.m3u8?zzhed
 上虞新商都,http://l.cztvcloud.com/channels/lantian/SXshangyu3/720p.m3u8
@@ -852,7 +844,6 @@ CCTV14,http://gslbmgsplive.miguvideo.com/wd_r2/2018/ocn/cctv14hd/2000/index.m3u8
 卡酷少儿,http://39.164.143.66:13994/tsfile/live/1057_1.m3u8?key=txiptv&playlive=0&authid=0
 卡酷少儿,http://112.99.195.122:65000/tsfile/live/1033_1.m3u8?key=txiptv&playlive=1&authid=0
 卡酷少儿,http://223.111.191.105/downflv.brtvcloud.com/kkkkasd/winfr.m3u8
-内蒙少儿,https://livestream-bt.nmtv.cn/nmtv/2318general.m3u8?txSecret=a2c948908728a0733cecbe1fadea23dc&txTime=771E8800
 七龙珠,https://live.metshop.top/huya/11601966
 青岛少儿,http://video10.qtv.com.cn/drm/qtv6at/manifest.m3u8
 山东少儿,http://livealone302.iqilu.com/iqilu/sepd.m3u8
@@ -947,7 +938,6 @@ CND Film Middle School Channel,http://live2.rxip.sc96655.com/live/zxs_4000.m3u8?
 电影谍战,http://live.metshop.top/huya/21059585?cdn=alicdn
 电影谍战片,http://live.metshop.top/huya/21059587?cdn=alicdn
 电影贺岁,http://live.metshop.top/huya/11601971?cdn=alicdn
-东方影视,http://223.166.234.9:7777/tsfile/live/1028_1.m3u8?key=txiptv&playlive=1&authid=0%24LR%E2%80%A2IPV4%E3%80%8E%E7%BA%BF%E8%B7%AF11%E3%80%8F
 动作电影,http://39.134.19.68/dbiptv.sn.chinamobile.com/PLTV/88888888/224/3221226465/index.m3u8
 东阳影视生活,http://l.cztvcloud.com/channels/lantian/SXdongyang1/720p.m3u8
 广东影视,http://120.198.86.186:9901/tsfile/live/1018_1.m3u8?key=txiptv&playlive=1&authid=0

@@ -33,20 +33,8 @@ SOURCE_URLS = [
     # iptv-org/iptv (中国频道) - 补充CCTV/卫视直链源，频道名带清晰度后缀
     "https://iptv-org.github.io/iptv/countries/cn.m3u",
 
-    # fanmingming/live - 补充源，频道齐全，台标完善
-    "https://raw.githubusercontent.com/fanmingming/live/main/tv/m3u/ipv6.m3u",
-
     # AudiHub/iptv (migu) - 咪咕稳定源，补充央视和卫视
     "https://gh-proxy.org/https://raw.githubusercontent.com/AudiHub/iptv/main/m3u/migu.m3u",
-
-    # YanG-1989/m3u - 聚合源，收集多个来源
-    "https://raw.githubusercontent.com/YanG-1989/m3u/main/Gather.m3u",
-
-    # YueChan/Live - 另一个常用源
-    "https://raw.githubusercontent.com/YueChan/Live/main/IPTV.m3u",
-
-    # drangjchen/IPTV
-    "https://raw.githubusercontent.com/drangjchen/IPTV/main/M3U/ipv6.m3u",
 ]
 
 # 输出文件

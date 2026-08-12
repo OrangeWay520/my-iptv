@@ -1,6 +1,6 @@
 #EXTM3U x-tvg-url="http://epg.51zmt.top:8000/e.xml"
 
-# 分类: 央视频道 - 44 个频道, 158 个播放源
+# 分类: 央视频道 - 42 个频道, 156 个播放源
 
 #EXTINF:-1 tvg-id="35" tvg-name="CCTV1" tvg-logo="https://tb.zbds.top/logo/CCTV1.png" group-title="央视频道",CCTV1
 http://69.30.245.50/live/cctv1.m3u8
@@ -292,8 +292,6 @@ https://0472.org/hls/cgtnf.m3u8
 http://espanol-liveali.cgtn.com/hls/LSveOGBaBw41Ea7ukkVAUdKQ220802LSTexu6xAuFH8VZNBLE1ZNEa220802cd.m3u8
 #EXTINF:-1 tvg-id="CGTN法语" tvg-name="CGTN法语" tvg-logo="https://tb.zbds.top/logo/CGTN法语.png" group-title="央视频道",CGTN法语
 http://gslbmgsplive.miguvideo.com/envivo_v/2018/SD/cctv/fayu/1000/index.m3u8?msisdn=ecbe6e8bb35a073afef6deae8344a6a4&mdspid=&spid=699004&netType=0&sid=2200179324&pid=2028597139&timestamp=20260812102049&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=609006476&ParentNodeID=-99&assertID=2200179324&client_ip=39.103.182.111&SecurityKey=20260812102049&promotionId=&mvid=2200179324&mcid=500020&playurlVersion=WX-A1-9.8.0-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=3a4388aea541e0e15010ff795b95fa3b&ddCalcu=b33ava4af3y58a98ba5e9a75f4f10e100e51&sv=10004&ct=android
-#EXTINF:-1 tvg-name="CGTN纪录" tvg-logo="https://live.fanmingming.cn/tv/CGTN纪录.png" group-title="央视频道",CGTN记录
-https://0472.org/hls/cgtnd.m3u8
 #EXTINF:-1 tvg-id="CGTN西语" tvg-name="CGTN西语" tvg-logo="https://tb.zbds.top/logo/CGTN西语.png" group-title="央视频道",CGTN西语
 https://0472.org/hls/cgtnx.m3u8
 #EXTINF:-1 tvg-id="CGTN西班牙语" tvg-name="CGTN西班牙语" tvg-logo="http://wapx.cmvideo.cn:8080/publish/poms/image/2200/179/337/202502251600_1740470437874_H32_1080.webp" group-title="央视频道",CGTN西班牙语
@@ -306,8 +304,6 @@ http://russian-livews.cgtn.com/hls/LSvexABhNipibK5KRuUkvHZ7220802LSTeze9o8tdFXMH
 http://gslbmgsplive.miguvideo.com/envivo_v/2018/SD/cctv/eyu/1000/index.m3u8?msisdn=53ed4c4013f09cfef0c7e90f49223c80&mdspid=&spid=699004&netType=0&sid=2200179332&pid=2028597139&timestamp=20260812102049&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=609006446&ParentNodeID=-99&assertID=2200179332&client_ip=39.103.188.159&SecurityKey=20260812102049&promotionId=&mvid=2200179332&mcid=500020&playurlVersion=WX-A1-9.8.0-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=c5df54e3e500b4a8d79bd118bdcff823&ddCalcu=3c25v8daffyf5ac4deb38e1510d0bb947ad8&sv=10004&ct=android
 #EXTINF:-1 tvg-id="CGTN外语纪录" tvg-name="CGTN外语纪录" tvg-logo="http://wapx.cmvideo.cn:8080/publish/poms/image/2200/179/356/202502251602_1740470541608_H32_1080.webp" group-title="央视频道",CGTN外语纪录
 http://gslbmgsplive.miguvideo.com/envivo_v/2018/SD/cctv/doc/1000/index.m3u8?msisdn=246cc3300111af6d3195d950c5f5eedf&mdspid=&spid=699004&netType=0&sid=2200179356&pid=2028597139&timestamp=20260812102048&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=609006487&ParentNodeID=-99&assertID=2200179356&client_ip=47.92.23.141&SecurityKey=20260812102048&promotionId=&mvid=2200179356&mcid=500020&playurlVersion=WX-A1-9.8.0-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=a8cfa16c3a6e1cacd014f183d92ece30&ddCalcu=0a38vecacfyeaa2196dc338a16fe411c0adc&sv=10004&ct=android
-#EXTINF:-1 tvg-name="CGTN" tvg-logo="https://live.fanmingming.cn/tv/CGTN.png" group-title="央视频道",CGTN英语
-https://0472.org/hls/cgtn.m3u8
 #EXTINF:-1 tvg-id="CGTN阿语" tvg-name="CGTN阿语" tvg-logo="https://tb.zbds.top/logo/CGTN阿语.png" group-title="央视频道",CGTN阿语
 https://0472.org/hls/cgtna.m3u8
 #EXTINF:-1 tvg-id="CGTN阿拉伯语" tvg-name="CGTN阿拉伯语" tvg-logo="http://wapx.cmvideo.cn:8080/publish/poms/image/2200/179/303/202502251557_1740470230464_H32_1080.webp" group-title="央视频道",CGTN阿拉伯语
@@ -730,7 +726,7 @@ http://ali-m-l.cztv.com:80/channels/lantian/channel001/1080p.m3u8
 #EXTINF:-1 tvg-id="72" tvg-name="浙江卫视" tvg-logo="https://tb.zbds.top/logo/浙江卫视.png" group-title="卫视频道",浙江卫视
 https://ali-m-l.cztv.com/channels/lantian/channel001/1080p.m3u8?
 
-# 分类: 地方频道 - 315 个频道, 456 个播放源
+# 分类: 地方频道 - 310 个频道, 450 个播放源
 
 #EXTINF:-1 tvg-id="安徽导视" tvg-name="安徽导视" tvg-logo="https://tb.zbds.top/logo/安徽导视.png" group-title="地方频道",安徽导视
 http://dspdhls.appcoo.com:8888/live/dspd/index.m3u8
@@ -782,12 +778,6 @@ http://222.128.55.152:9080/live/dwq.m3u8
 http://gslbmgsplive.miguvideo.com/wd_r3/2018/nfmedia/nfws/1000/index.m3u8?msisdn=9a9697494dfe32a3c25939ad33728dd3&mdspid=&spid=699054&netType=0&sid=2200322852&pid=2028597139&timestamp=20260812102054&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=608917627&ParentNodeID=-99&assertID=2200322852&client_ip=39.103.182.111&SecurityKey=20260812102054&promotionId=&mvid=2200322852&mcid=500020&playurlVersion=WX-A1-9.8.0-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=2e4c763d13f2de999c21827880fb8d5e&ddCalcu=e25evd4a8cwb7af6038d81732f821d2ec999&sv=10004&ct=android
 #EXTINF:-1 tvg-id="第一财经" tvg-name="第一财经" tvg-logo="https://tb.zbds.top/logo/第一财经.png" group-title="地方频道",第一财经
 http://satellitepull.cnr.cn/live/wx32dycjgb/playlist.m3u8
-#EXTINF:-1 tvg-id="第一财经" tvg-name="第一财经" tvg-logo="https://tb.zbds.top/logo/第一财经.png" group-title="地方频道",第一财经
-http://223.166.234.9:7777/tsfile/live/1029_1.m3u8?key=txiptv&playlive=1&authid=0%24LR%E2%80%A2IPV4%E3%80%8E%E7%BA%BF%E8%B7%AF10%E3%80%8F
-#EXTINF:-1 tvg-id="东方财经" tvg-name="东方财经" tvg-logo="https://ghfast.top/raw.githubusercontent.com/drangjchen/IPTV/main/Logo/东方财经-light.png" group-title="地方频道",东方财经
-http://223.166.234.9:7777/tsfile/live/1031_1.m3u8?key=txiptv&playlive=1&authid=0%24LR%E2%80%A2IPV4%E3%80%8E%E7%BA%BF%E8%B7%AF12%E3%80%8F
-#EXTINF:-1 tvg-id="东方影视" tvg-name="东方影视" tvg-logo="https://ghfast.top/raw.githubusercontent.com/drangjchen/IPTV/main/Logo/东方影视-light.png" group-title="地方频道",东方影视
-http://223.166.234.9:7777/tsfile/live/1028_1.m3u8?key=txiptv&playlive=1&authid=0%24LR%E2%80%A2IPV4%E3%80%8E%E7%BA%BF%E8%B7%AF11%E3%80%8F
 #EXTINF:-1 tvg-id="东丰" tvg-name="东丰" tvg-logo="https://tb.zbds.top/logo/东丰.png" group-title="地方频道",东丰
 http://stream5.jlntv.cn/df/sd/live.m3u8?zjild
 #EXTINF:-1 tvg-id="东丰综合" tvg-name="东丰综合" tvg-logo="https://tb.zbds.top/logo/东丰综合.png" group-title="地方频道",东丰综合
@@ -982,8 +972,6 @@ http://stream8.jlntv.cn/ljtv/sd/live.m3u8?zjild
 http://stream9.jlntv.cn:80/aac_longjinggb/playlist.m3u8
 #EXTINF:-1 tvg-id="龙泉新闻综合" tvg-name="龙泉新闻综合" tvg-logo="https://tb.zbds.top/logo/龙泉新闻综合.png" group-title="地方频道",龙泉新闻综合
 http://l.cztvcloud.com/channels/lantian/SXlongquan1/720p.m3u8
-#EXTINF:-1 tvg-name="内蒙古蒙语卫视" tvg-logo="https://live.fanmingming.cn/tv/内蒙古蒙语卫视.png" group-title="地方频道",蒙语卫视
-https://livestream-bt.nmtv.cn/nmtv/2315general.m3u8?txSecret=4971666599ef9411629213c9a300bf66&txTime=771EF880
 #EXTINF:-1 tvg-id="1" tvg-name="南方卫视" tvg-logo="https://tb.zbds.top/logo/南方卫视.png" group-title="地方频道",南方卫视
 http://120.237.39.10:9901/tsfile/live/1012_1.m3u8?key=txiptv&playlive=1&down=1
 #EXTINF:-1 tvg-id="1" tvg-name="南方卫视" tvg-logo="https://tb.zbds.top/logo/南方卫视.png" group-title="地方频道",南方卫视
@@ -1044,10 +1032,6 @@ http://ls.qingting.fm/live/60260.m3u8
 http://livealone302.iqilu.com/iqilu/typd.m3u8
 #EXTINF:-1 tvg-id="上海第一财经" tvg-name="上海第一财经" tvg-logo="https://tb.zbds.top/logo/上海第一财经.png" group-title="地方频道",上海第一财经
 https://satellitepull.cnr.cn/live/wx32dycjgb/playlist.m3u8
-#EXTINF:-1 tvg-id="上海教育" tvg-name="上海教育" tvg-logo="https://ghfast.top/raw.githubusercontent.com/drangjchen/IPTV/main/Logo/上海教育.png" group-title="地方频道",上海教育
-http://61.173.144.157:9901/tsfile/live/1007_1.m3u8?key=txiptv&playlive=1&authid=0%24LR%E2%80%A2IPV4%E3%80%8E%E7%BA%BF%E8%B7%AF1%E3%80%8F
-#EXTINF:-1 tvg-id="上海新闻" tvg-name="上海新闻" tvg-logo="https://ghfast.top/raw.githubusercontent.com/drangjchen/IPTV/main/Logo/上海新闻-light.png" group-title="地方频道",上海新闻
-http://61.173.144.157:9901/tsfile/live/1000_1.m3u8
 #EXTINF:-1 tvg-id="上虞文化影院" tvg-name="上虞文化影院" tvg-logo="https://tb.zbds.top/logo/上虞文化影院.png" group-title="地方频道",上虞文化影院
 http://l.cztvcloud.com/channels/lantian/SXshangyu2/720p.m3u8
 #EXTINF:-1 tvg-id="上虞新闻综合" tvg-name="上虞新闻综合" tvg-logo="https://tb.zbds.top/logo/上虞新闻综合.png" group-title="地方频道",上虞新闻综合
@@ -1645,7 +1629,7 @@ http://stream8.jlntv.cn/jytv/sd/live.m3u8?zjild
 #EXTINF:-1 tvg-id="靖宇综合" tvg-name="靖宇综合" tvg-logo="https://tb.zbds.top/logo/靖宇综合.png" group-title="地方频道",靖宇综合
 http://stream9.jlntv.cn:80/aac_jygb/playlist.m3u8
 
-# 分类: 少儿频道 - 23 个频道, 48 个播放源
+# 分类: 少儿频道 - 22 个频道, 47 个播放源
 
 #EXTINF:-1 tvg-id="CCTV14.cn@HD" tvg-name="CCTV14" tvg-logo="https://i.imgur.com/c5SXW7i.png" group-title="少儿频道",CCTV14
 http://74.91.26.218:82/live/cctv14hd.m3u8
@@ -1705,8 +1689,6 @@ http://39.164.143.66:13994/tsfile/live/1057_1.m3u8?key=txiptv&playlive=0&authid=
 http://112.99.195.122:65000/tsfile/live/1033_1.m3u8?key=txiptv&playlive=1&authid=0
 #EXTINF:-1 tvg-id="3" tvg-name="卡酷少儿" tvg-logo="https://tb.zbds.top/logo/卡酷少儿.png" group-title="少儿频道",卡酷少儿
 http://223.111.191.105/downflv.brtvcloud.com/kkkkasd/winfr.m3u8
-#EXTINF:-1 tvg-name="内蒙古少儿" tvg-logo="https://live.fanmingming.cn/tv/内蒙古少儿.png" group-title="少儿频道",内蒙少儿
-https://livestream-bt.nmtv.cn/nmtv/2318general.m3u8?txSecret=a2c948908728a0733cecbe1fadea23dc&txTime=771E8800
 #EXTINF:-1 tvg-id="七龙珠" tvg-name="七龙珠" tvg-logo="https://tb.zbds.top/logo/七龙珠.png" group-title="少儿频道",七龙珠
 https://live.metshop.top/huya/11601966
 #EXTINF:-1 tvg-id="QTV6.cn@SD" tvg-logo="https://www.tvchinese.net/uploads/tv/qdtv6.jpg" group-title="少儿频道",青岛少儿
@@ -1815,7 +1797,7 @@ https://epg.pw/stream/ab6df63b64d0cc44a1f4f029ed847a26fa54a7aebd455578fb05a63f02
 #EXTINF:-1 tvg-id="赛事最经典" tvg-name="赛事最经典" tvg-logo="http://wapx.cmvideo.cn:8080/publish/poms/image/5500/592/947/202204010047_5101034296_H32_1080.webp" group-title="体育频道",赛事最经典
 http://gslbmgsplive.miguvideo.com/migu/kailu/saishijingdian/51/20250514/index.m3u8?msisdn=7eab88c8818f2919d80f86a77feaf62f&mdspid=&spid=699004&netType=0&sid=5500592947&pid=2028597139&timestamp=20260812102115&Channel_ID=0116_2600034600-99000-201600010010028&ProgramID=646596895&ParentNodeID=-99&assertID=5500592947&client_ip=39.103.182.111&SecurityKey=20260812102115&promotionId=&mvid=5101034296&mcid=500020&playurlVersion=WX-A1-9.8.0-SNAPSHOT&userid=&jmhm=&videocodec=h264&appCode=miguvideo_android&bean=mgspad&tid=android&conFee=0&puData=6af4bae0c8928f6ef3e8190931d23469&ddCalcu=966av4fa34k2bada1e309c08991288ef36fe&sv=10004&ct=android
 
-# 分类: 电影频道 - 58 个频道, 79 个播放源
+# 分类: 电影频道 - 57 个频道, 78 个播放源
 
 #EXTINF:-1 tvg-id="CCTV6.cn@HD" tvg-name="CCTV6" tvg-logo="https://i.imgur.com/rFiaef7.png" group-title="电影频道",CCTV6
 http://69.30.245.50/live/cctv6.m3u8
@@ -1893,8 +1875,6 @@ http://live.metshop.top/huya/21059585?cdn=alicdn
 http://live.metshop.top/huya/21059587?cdn=alicdn
 #EXTINF:-1 tvg-id="1" tvg-name="电影贺岁" tvg-logo="https://tb.zbds.top/logo/电影贺岁.png" group-title="电影频道",电影贺岁
 http://live.metshop.top/huya/11601971?cdn=alicdn
-#EXTINF:-1 tvg-id="东方影视" tvg-name="东方影视" tvg-logo="https://ghfast.top/raw.githubusercontent.com/drangjchen/IPTV/main/Logo/东方影视-light.png" group-title="电影频道",东方影视
-http://223.166.234.9:7777/tsfile/live/1028_1.m3u8?key=txiptv&playlive=1&authid=0%24LR%E2%80%A2IPV4%E3%80%8E%E7%BA%BF%E8%B7%AF11%E3%80%8F
 #EXTINF:-1 tvg-id="CHCAction.cn@SD" tvg-logo="https://i.imgur.com/AuiVcyh.png" group-title="电影频道",动作电影
 http://39.134.19.68/dbiptv.sn.chinamobile.com/PLTV/88888888/224/3221226465/index.m3u8
 #EXTINF:-1 tvg-id="东阳影视生活" tvg-name="东阳影视生活" tvg-logo="https://tb.zbds.top/logo/东阳影视生活.png" group-title="电影频道",东阳影视生活
