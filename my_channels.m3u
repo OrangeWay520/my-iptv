@@ -1477,7 +1477,7 @@ http://l.cztvcloud.com/channels/lantian/SXzhuji3/720p.m3u8?zzhed
 #EXTINF:-1 tvg-id="遂昌综合" tvg-name="遂昌综合" tvg-logo="https://tb.zbds.top/logo/遂昌综合.png" group-title="地方频道",遂昌综合
 http://l.cztvcloud.com/channels/lantian/SXsuichang1/720p.m3u8?zzhed
 
-# 分类: 港澳台频道 - 25 个频道, 42 个播放源
+# 分类: 港澳台频道 - 25 个频道, 40 个播放源
 
 #EXTINF:-1 tvg-id="CanalMacau.mo@SD" tvg-logo="https://i.imgur.com/oFPUZ97.png" group-title="港澳台频道",澳门有线92
 https://live3.tdm.com.mo/ch2/ch2.live/playlist.m3u8
@@ -1545,16 +1545,12 @@ http://r.jdshipin.com/n90gt
 http://r.jdshipin.com/GeWKr
 #EXTINF:-1 group-title="港澳台频道",翡翠台
 http://php.jdshipin.com:8880/TVOD/iptv.php?id=fct4
-#EXTINF:-1 group-title="港澳台频道",翡翠台
-http://120.198.86.186:9901/tsfile/live/1007_1.m3u8?key=txiptv&playlive=1&authid=0
 #EXTINF:-1 group-title="港澳台频道",星空衛視
 http://218.202.220.2:5000/nn_live.ts?id=STARTV
 #EXTINF:-1 group-title="港澳台频道",明珠台
 http://r.jdshipin.com/GeWKr?id=mzt720
 #EXTINF:-1 group-title="港澳台频道",明珠台
 http://r.jdshipin.com/ZQ4kN
-#EXTINF:-1 group-title="港澳台频道",明珠台
-http://120.198.86.186:9901/tsfile/live/1009_1.m3u8?key=txiptv&playlive=1&authid=0
 #EXTINF:-1 group-title="港澳台频道",無線TVB Plus
 http://php.jdshipin.com/TVOD/iptv.php?id=tvbp
 #EXTINF:-1 group-title="港澳台频道",無線新聞
