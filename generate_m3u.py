@@ -785,6 +785,8 @@ def is_usable_url(url: str) -> bool:
     """过滤车机/家庭网络不可用的播放地址：
     - RTP 组播地址（rtp://239.x.x.x）需要局域网组播支持，普通车机无法播放
     - IPv6 地址（[2409:...] 或裸 IPv6）在多数车机网络环境不可用
+    - 浙江广电 cztv 的 channel21 实为浙江公共新闻频道，曾被误标为 CCTV-13，
+      必须过滤（含 ali-m-l.cztv.com / cztvcloud.com 等域名的各种变体）
     """
     u = url.strip().lower()
     if u.startswith('rtp://'):
@@ -792,6 +794,10 @@ def is_usable_url(url: str) -> bool:
     # IPv6 地址特征：任何包含 [ ] 的 URL（无论是否带端口）
     # 例如 http://[2409:...]:8080/... 或 http://[2409:...]/path
     if '[' in u:
+        return False
+    # 浙江广电 cztv channel21 = 浙江公共新闻（非 CCTV-13），一律过滤
+    # 兼容 channel21 / channel021 等补零写法
+    if 'cztv' in u and re.search(r'channel0*21', u):
         return False
     return True
 

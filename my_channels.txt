@@ -77,7 +77,6 @@ CCTV-12,http://58.56.162.102:4466/newlive/live/hls/13/live.m3u8
 CCTV-12,http://120.40.39.246:352/newlive/live/hls/13/live.m3u8
 CCTV-12,http://74.91.26.218:82/live/cctv12hd.m3u8
 CCTV-13,http://go.bkpcp.top/mg/cctv13
-CCTV-13,http://ali-m-l.cztv.com/channels/lantian/channel21/1080p.m3u8
 CCTV-13,http://111.59.24.227:8181/tsfile/live/0013_1.m3u8?key=txiptv&playlive=1&authid=0
 CCTV-13,http://113.9.214.47:9003/hls/13/index.m3u8
 CCTV-13,http://221.7.175.154:8445/tsfile/live/1011_1.m3u8?key=txiptv&playlive=1&authid=0
@@ -670,7 +669,6 @@ CGTN阿语,https://0472.org/hls/cgtna.m3u8
 浙江遂昌,http://l.cztvcloud.com/channels/lantian/SXsuichang1/720p.m3u8
 浙江钱江,http://l.cztvcloud.com/channels/lantian/SXyuyao2/720p.m3u8
 浙江钱江都市,https://ali-m-l.cztv.com/channels/lantian/channel002/1080p.m3u8
-浙江钱江都市,http://ali-xwl.cztv.com/live/channel021080Plxw.m3u8
 浙江钱江都市,http://ali-xwl.cztv.com/live/channel02720Plxw.m3u8
 浙江钱江频道,http://ali-m-l.cztv.com/channels/lantian/channel02/1080p.m3u8
 中国蓝新闻,http://ali-m-l.cztv.com/channels/lantian/channel009/1080p.m3u8
