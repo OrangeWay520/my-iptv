@@ -674,6 +674,8 @@ CGTN阿语,https://0472.org/hls/cgtna.m3u8
 民视,http://seb.sason.top/ptv/ftv.php?id=ms
 HOY TV,https://hoytv-live-stream.hoy.tv/ch77/index.m3u8
 HOY TV,http://uc6.i-cable.com/live_freedirect/opentvhd001_h.live/playlist.m3u8
+HOY TV,http://media.fantv.hk/m3u8/archive/channel2_stream1.m3u8
+HOY TV,http://media.fantv.hk/m3u8/archive/channel2.m3u8
 HOY TV,http://r.jdshipin.com/sFw4S
 HOY TV,http://php.jdshipin.com/TVOD/iptv.php?id=hoytv
 澳视卫星,https://live3.tdm.com.mo/ch3/ch3.live/playlist.m3u8
